@@ -6,7 +6,6 @@ blindsight 0.1.0: offline verification of a Safe transaction (verify)
 
 CRITICAL: DO NOT SIGN without independent review
 Findings: 2 critical, 1 low, 1 info
-A clean result does not make a transaction safe: blindsight does not simulate it. Compare the hashes below with your wallet.
 
 FINDINGS (4)
   CRITICAL  BS-DELEGATE-001   root

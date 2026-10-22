@@ -143,10 +143,13 @@ fn verdict(out: &mut String, report: &Report) {
     if !counts.is_empty() {
         let _ = writeln!(out, "Findings: {}", counts.join(", "));
     }
-    let _ = writeln!(
-        out,
-        "A clean result does not make a transaction safe: blindsight does not simulate it. Compare the hashes below with your wallet."
-    );
+    // Only worth saying when nothing alarming was found.
+    if report.verdict() < Some(Severity::Medium) {
+        out.push_str(&wrap(
+            "A clean result does not make a transaction safe: blindsight does not simulate it. Compare the hashes below with your wallet.",
+            "",
+        ));
+    }
 }
 
 fn hash_checks(out: &mut String, report: &Report) {
