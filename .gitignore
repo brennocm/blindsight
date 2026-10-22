@@ -1,0 +1,26 @@
+# Build output
+/target/
+/fuzz/target/
+/fuzz/corpus/
+/fuzz/artifacts/
+/fuzz/coverage/
+lcov.info
+
+# Research tooling (scripts/fixtures)
+.venv/
+__pycache__/
+
+# Snapshot review leftovers
+*.snap.new
+*.pending-snap
+
+# Local, non-project files
+/project.md
+/ideas.md
+CLAUDE.md
+.claude/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
