@@ -21,7 +21,8 @@ use thiserror::Error;
 
 use crate::safe::Operation;
 
-/// Size of an entry without its data.
+/// Size of an entry without its data (tests use it to build cases).
+#[cfg(test)]
 const HEADER: usize = 1 + 20 + 32 + 32;
 
 /// One transaction of a batch.
@@ -80,33 +81,31 @@ pub fn unpack(transactions: &[u8]) -> Result<Vec<BatchEntry>, MultiSendError> {
     let mut rest = transactions;
     while !rest.is_empty() {
         let index = entries.len();
-        let (header, after) =
-            rest.split_at_checked(HEADER)
-                .ok_or(MultiSendError::TruncatedHeader {
-                    index,
-                    remaining: rest.len(),
-                })?;
-        let (op_byte, header) = header.split_at(1);
-        let (to_bytes, header) = header.split_at(20);
-        let (value_bytes, len_bytes) = header.split_at(32);
+        let truncated = MultiSendError::TruncatedHeader {
+            index,
+            remaining: rest.len(),
+        };
+        // Each step returns `None` instead of panicking if bytes run out;
+        // fixed-size arrays make the field widths part of the types.
+        let (&byte, after) = rest.split_first().ok_or(truncated.clone())?;
+        let (to_bytes, after) = after.split_first_chunk::<20>().ok_or(truncated.clone())?;
+        let (value_bytes, after) = after.split_first_chunk::<32>().ok_or(truncated.clone())?;
+        let (len_bytes, after) = after.split_first_chunk::<32>().ok_or(truncated)?;
 
-        // `split_at(1)` on a non-empty slice leaves exactly one byte.
-        let byte = op_byte.first().copied().unwrap_or(u8::MAX);
         let operation =
             Operation::try_from(byte).map_err(|_| MultiSendError::BadOperation { index, byte })?;
-        let to = Address::from_slice(to_bytes);
-        let value = U256::from_be_slice(value_bytes);
-        let declared = U256::from_be_slice(len_bytes);
+        let to = Address::from(*to_bytes);
+        let value = U256::from_be_bytes(*value_bytes);
+        let declared = U256::from_be_bytes(*len_bytes);
 
-        let data_len = usize::try_from(declared)
-            .ok()
-            .filter(|len| *len <= after.len())
-            .ok_or(MultiSendError::TruncatedData {
-                index,
-                declared,
-                remaining: after.len(),
-            })?;
-        let (data, next) = after.split_at(data_len);
+        let remaining = after.len();
+        let too_long = || MultiSendError::TruncatedData {
+            index,
+            declared,
+            remaining,
+        };
+        let data_len = usize::try_from(declared).map_err(|_| too_long())?;
+        let (data, next) = after.split_at_checked(data_len).ok_or_else(too_long)?;
         entries.push(BatchEntry {
             operation,
             to,
