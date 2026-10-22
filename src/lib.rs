@@ -15,6 +15,7 @@ pub mod decode;
 pub mod detect;
 pub mod input;
 pub mod registry;
+pub mod report;
 pub mod safe;
 pub mod sanitize;
 pub mod units;

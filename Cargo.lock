@@ -595,6 +595,7 @@ dependencies = [
  "alloy-json-abi",
  "alloy-primitives",
  "alloy-sol-types",
+ "anstyle",
  "anyhow",
  "clap",
  "insta",

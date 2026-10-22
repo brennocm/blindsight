@@ -16,6 +16,8 @@ const FILE: &str = "permit2.json";
 /// Where Permit2 is deployed.
 #[derive(Debug)]
 pub struct Permit2 {
+    /// Where the address comes from.
+    pub source: String,
     /// Its address (the same on every chain listed).
     pub address: Address,
     chain_ids: Vec<u64>,
@@ -31,6 +33,7 @@ impl Permit2 {
 
 #[derive(Deserialize)]
 struct Permit2File {
+    source: String,
     address: String,
     chain_ids: Vec<u64>,
 }
@@ -39,6 +42,7 @@ fn parse(json: &str) -> Result<Permit2, RegistryError> {
     let file: Permit2File =
         serde_json::from_str(json).map_err(|e| RegistryError::new(FILE, e.to_string()))?;
     Ok(Permit2 {
+        source: file.source,
         address: parse_checksummed(FILE, &file.address)?,
         chain_ids: file.chain_ids,
     })

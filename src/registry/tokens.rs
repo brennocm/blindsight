@@ -35,6 +35,8 @@ pub struct Token {
 /// Known tokens, by `(chain id, address)`.
 #[derive(Debug)]
 pub struct TokenList {
+    /// Where the list comes from and how it was checked.
+    pub source: String,
     by_location: BTreeMap<(u64, Address), Token>,
 }
 
@@ -62,6 +64,7 @@ impl TokenList {
 
 #[derive(Deserialize)]
 struct TokensFile {
+    source: String,
     tokens: Vec<TokenEntry>,
 }
 
@@ -97,7 +100,10 @@ fn parse(json: &str) -> Result<TokenList, RegistryError> {
             ));
         }
     }
-    Ok(TokenList { by_location })
+    Ok(TokenList {
+        source: file.source,
+        by_location,
+    })
 }
 
 static TOKENS: LazyLock<Result<TokenList, RegistryError>> = LazyLock::new(|| parse(TOKENS_JSON));
@@ -142,9 +148,9 @@ mod tests {
 
     #[test]
     fn rejects_bad_checksums_and_duplicates() {
-        let bad = r#"{"tokens":[{"chain_id":1,"address":"0xa0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","symbol":"U","name":"U","decimals":6}]}"#;
+        let bad = r#"{"source":"t","tokens":[{"chain_id":1,"address":"0xa0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","symbol":"U","name":"U","decimals":6}]}"#;
         assert!(parse(bad).is_err());
-        let dup = r#"{"tokens":[
+        let dup = r#"{"source":"t","tokens":[
             {"chain_id":1,"address":"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","symbol":"U","name":"U","decimals":6},
             {"chain_id":1,"address":"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","symbol":"V","name":"V","decimals":6}]}"#;
         assert!(parse(dup).is_err());
