@@ -22,6 +22,7 @@ mod nonce_001;
 mod owners_001;
 mod poison_001;
 mod refund_001;
+mod replay_001;
 mod self_001;
 mod semantics_001;
 mod target_001;
@@ -235,11 +236,12 @@ pub enum Detector {
     Self001,
     Nonce001,
     Nested001,
+    Replay001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 19] = [
+    pub const ALL: [Detector; 20] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -259,6 +261,7 @@ impl Detector {
         Detector::Self001,
         Detector::Nonce001,
         Detector::Nested001,
+        Detector::Replay001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -303,6 +306,7 @@ impl Detector {
             Detector::Self001 => include_str!("../../docs/detectors/BS-SELF-001.md"),
             Detector::Nonce001 => include_str!("../../docs/detectors/BS-NONCE-001.md"),
             Detector::Nested001 => include_str!("../../docs/detectors/BS-NESTED-001.md"),
+            Detector::Replay001 => include_str!("../../docs/detectors/BS-REPLAY-001.md"),
         }
     }
 
@@ -398,6 +402,7 @@ impl Detector {
                 "Nested Safe transaction or opaque hash approval",
                 "info (nested, decoded), high (approveHash, too deep)",
             ),
+            Detector::Replay001 => (replay_001::ID, "Domain without chain id (pre-1.3.0)", "low"),
         }
     }
 
@@ -423,6 +428,7 @@ impl Detector {
             Detector::Self001 => self_001::check(ctx, node),
             Detector::Nonce001 => nonce_001::check(ctx, node),
             Detector::Nested001 => nested_001::check(ctx, node),
+            Detector::Replay001 => replay_001::check(ctx, node),
         }
     }
 }
