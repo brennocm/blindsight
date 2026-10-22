@@ -13,6 +13,7 @@ cargo-fuzz = true
 
 [dependencies]
 libfuzzer-sys = "0.4"
+alloy-primitives = "1.7.3"
 
 [dependencies.blindsight]
 path = ".."
@@ -34,6 +35,20 @@ bench = false
 [[bin]]
 name = "input_fields"
 path = "fuzz_targets/input_fields.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "decode_multisend"
+path = "fuzz_targets/decode_multisend.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "decode_tree"
+path = "fuzz_targets/decode_tree.rs"
 test = false
 doc = false
 bench = false
