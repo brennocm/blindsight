@@ -8,6 +8,7 @@
 //! Documentation for each one lives in `docs/detectors/<ID>.md` and is
 //! compiled in for `blindsight detectors explain`.
 
+mod approval_001;
 mod delegate_001;
 mod delegate_002;
 mod fallback_001;
@@ -217,11 +218,12 @@ pub enum Detector {
     Fallback001,
     Impl001,
     Refund001,
+    Approval001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 10] = [
+    pub const ALL: [Detector; 11] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -232,6 +234,7 @@ impl Detector {
         Detector::Fallback001,
         Detector::Impl001,
         Detector::Refund001,
+        Detector::Approval001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -267,6 +270,7 @@ impl Detector {
             Detector::Fallback001 => include_str!("../../docs/detectors/BS-FALLBACK-001.md"),
             Detector::Impl001 => include_str!("../../docs/detectors/BS-IMPL-001.md"),
             Detector::Refund001 => include_str!("../../docs/detectors/BS-REFUND-001.md"),
+            Detector::Approval001 => include_str!("../../docs/detectors/BS-APPROVAL-001.md"),
         }
     }
 
@@ -325,6 +329,11 @@ impl Detector {
                 "Gas refund paid by the Safe",
                 "high (token or uncapped native refund), medium (capped native), low (inert fields)",
             ),
+            Detector::Approval001 => (
+                approval_001::ID,
+                "Unlimited or operator approval",
+                "high (unlimited or operator), info (bounded or revoked)",
+            ),
         }
     }
 
@@ -341,6 +350,7 @@ impl Detector {
             Detector::Fallback001 => fallback_001::check(ctx, node),
             Detector::Impl001 => impl_001::check(ctx, node),
             Detector::Refund001 => refund_001::check(ctx, node),
+            Detector::Approval001 => approval_001::check(ctx, node),
         }
     }
 }
