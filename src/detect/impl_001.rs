@@ -115,4 +115,52 @@ mod tests {
             [(Severity::Critical, "root".into())]
         );
     }
+
+    #[test]
+    fn official_migrations_are_info() {
+        // SafeMigration 1.4.1 and SafeToL2Setup 1.4.1, canonical addresses
+        // (docs/research.md §3).
+        let migration = tx(
+            addr("0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6"),
+            Operation::DelegateCall,
+            IHelpers::migrateSingletonCall {}.abi_encode(),
+        );
+        let f = findings(&migration);
+        assert_eq!(
+            with_id(&f, "BS-IMPL-001"),
+            [(Severity::Info, "root".into())]
+        );
+        assert!(with_id(&f, "BS-DELEGATE-001").is_empty());
+
+        let setup = tx(
+            addr("0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54"),
+            Operation::DelegateCall,
+            IHelpers::setupToL2Call {
+                l2Singleton: Address::repeat_byte(1),
+            }
+            .abi_encode(),
+        );
+        let f = findings(&setup);
+        let detail = &f.iter().find(|f| f.id == "BS-IMPL-001").unwrap().detail;
+        assert!(detail.contains("nonce is 0"), "{detail}");
+
+        // The same function on an unofficial contract is not a migration.
+        let fake = tx(
+            Address::repeat_byte(0xee),
+            Operation::DelegateCall,
+            IHelpers::migrateSingletonCall {}.abi_encode(),
+        );
+        assert!(with_id(&findings(&fake), "BS-IMPL-001").is_empty());
+    }
+
+    #[test]
+    fn change_master_copy_on_a_recent_safe_is_noted() {
+        let call = ISafe::changeMasterCopyCall {
+            _masterCopy: Address::repeat_byte(6),
+        }
+        .abi_encode();
+        let f = findings(&admin(call));
+        let detail = &f.iter().find(|f| f.id == "BS-IMPL-001").unwrap().detail;
+        assert!(detail.contains("no changeMasterCopy"), "{detail}");
+    }
 }

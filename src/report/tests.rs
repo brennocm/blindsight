@@ -139,3 +139,156 @@ fn malformed_reasons_are_sanitised() {
     let json = json::render(&report);
     assert!(json.contains("bad\\\\u{1b}[2Jreason"));
 }
+
+#[test]
+fn json_covers_every_node_kind() {
+    use alloy_sol_types::SolCall;
+
+    use crate::decode::functions::{IHelpers, ISafe};
+    use crate::decode::multisend::{BatchEntry, pack};
+
+    let entry = |data: Vec<u8>| BatchEntry {
+        operation: Operation::Call,
+        to: Address::repeat_byte(3),
+        value: U256::from(1u8),
+        data: Bytes::from(data),
+    };
+    // A nested Safe transaction whose inner call is a batch with an empty,
+    // an unknown, a short and a malformed entry, and one to a user ABI.
+    let mut malformed = vec![0xa9, 0x05, 0x9c, 0xbb];
+    malformed.push(0);
+    let batch = IHelpers::multiSendCall {
+        transactions: Bytes::from(pack(&[
+            entry(vec![]),
+            entry(vec![1, 2, 3, 4]),
+            entry(vec![1]),
+            entry(malformed),
+            BatchEntry {
+                to: Address::repeat_byte(9),
+                ..entry(vec![0x12, 0x34, 0x56, 0x78])
+            },
+        ])),
+    }
+    .abi_encode();
+    let nested = ISafe::execTransactionCall {
+        to: "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526"
+            .parse()
+            .unwrap(),
+        value: U256::ZERO,
+        data: Bytes::from(batch),
+        operation: 1,
+        safeTxGas: U256::ZERO,
+        baseGas: U256::ZERO,
+        gasPrice: U256::ZERO,
+        gasToken: Address::ZERO,
+        refundReceiver: Address::ZERO,
+        signatures: Bytes::new(),
+    }
+    .abi_encode();
+    let mut tx_input = input(Address::repeat_byte(0x77), Operation::Call, nested);
+    // One signature of each kind.
+    let mut sigs = Vec::new();
+    for v in [0u8, 1, 27, 31, 9] {
+        let mut s = vec![0u8; 65];
+        s[32..64].copy_from_slice(&U256::from(1000u64).to_be_bytes::<32>());
+        s[64] = v;
+        sigs.extend(s);
+    }
+    tx_input.signatures = Some(Bytes::from(sigs));
+    let mut abis = crate::decode::UserAbis::default();
+    abis.add(
+        Address::repeat_byte(9),
+        r#"[{"type":"function","name":"poke","stateMutability":"nonpayable","inputs":[],"outputs":[]}]"#,
+    )
+    .unwrap();
+    // The ABI bound to 0x0909… has no function with selector 0x12345678, so
+    // that entry stays unknown (a matching call is tested below).
+    let options = Options {
+        user_abis: abis,
+        ..Options::default()
+    };
+    let report = analyse(Command::Verify, tx_input, options).unwrap();
+    let json: serde_json::Value = serde_json::from_str(&json::render(&report)).unwrap();
+    let nested = &json["calls"]["decoded"];
+    assert_eq!(nested["kind"], "nested");
+    let items = nested["inner"]["decoded"]["items"].as_array().unwrap();
+    let kinds: Vec<&str> = items
+        .iter()
+        .map(|i| i["decoded"]["kind"].as_str().unwrap())
+        .collect();
+    assert_eq!(
+        kinds,
+        ["empty", "unknown", "unknown", "malformed", "unknown"]
+    );
+    let sig_kinds: Vec<&str> = json["signatures"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|s| s.get("kind").and_then(|k| k.as_str()).unwrap())
+        .collect();
+    assert_eq!(
+        sig_kinds,
+        [
+            "contract",
+            "approved_hash",
+            "typed_data",
+            "eth_sign",
+            "invalid"
+        ]
+    );
+    let text = text::render(&report);
+    assert!(text.contains("nested Safe transaction") && text.contains("MALFORMED"));
+}
+
+#[test]
+fn json_user_abi_and_too_deep_nodes() {
+    use alloy_sol_types::SolCall;
+
+    use crate::decode::functions::IHelpers;
+    use crate::decode::multisend::{BatchEntry, pack};
+
+    let target = Address::repeat_byte(9);
+    let mut abis = crate::decode::UserAbis::default();
+    abis.add(
+        target,
+        r#"[{"type":"function","name":"poke","stateMutability":"nonpayable","inputs":[{"name":"n","type":"uint8"}],"outputs":[]}]"#,
+    )
+    .unwrap();
+    let mut data = alloy_primitives::keccak256("poke(uint8)")[..4].to_vec();
+    data.extend_from_slice(&U256::from(7u8).to_be_bytes::<32>());
+    let report = analyse(
+        Command::Decode,
+        input(target, Operation::Call, data),
+        Options {
+            user_abis: abis,
+            ..Options::default()
+        },
+    )
+    .unwrap();
+    let json: serde_json::Value = serde_json::from_str(&json::render(&report)).unwrap();
+    assert_eq!(json["calls"]["decoded"]["kind"], "user");
+    assert_eq!(json["calls"]["decoded"]["args"][0]["value"], "7");
+    assert!(json.get("hashes").is_none());
+
+    let mut payload = vec![1, 2, 3, 4];
+    for _ in 0..=crate::decode::MAX_DEPTH {
+        payload = IHelpers::multiSendCall {
+            transactions: Bytes::from(pack(&[BatchEntry {
+                operation: Operation::Call,
+                to: Address::repeat_byte(1),
+                value: U256::ZERO,
+                data: Bytes::from(payload),
+            }])),
+        }
+        .abi_encode();
+    }
+    let report = analyse(
+        Command::Verify,
+        input(Address::repeat_byte(1), Operation::Call, payload),
+        Options::default(),
+    )
+    .unwrap();
+    let rendered = json::render(&report);
+    assert!(rendered.contains("\"kind\": \"too_deep\""));
+    assert!(text::render(&report).contains("NOT ANALYSED"));
+}

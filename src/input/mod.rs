@@ -644,4 +644,73 @@ mod tests {
             Err(InputError::Read { .. })
         ));
     }
+
+    #[test]
+    fn messages_name_fields_and_flags() {
+        assert_eq!(Field::SafeTxGas.to_string(), "safeTxGas (--safe-tx-gas)");
+        for field in [
+            Field::ChainId,
+            Field::Safe,
+            Field::SafeVersion,
+            Field::To,
+            Field::Value,
+            Field::Data,
+            Field::Operation,
+            Field::SafeTxGas,
+            Field::BaseGas,
+            Field::GasPrice,
+            Field::GasToken,
+            Field::RefundReceiver,
+            Field::Nonce,
+            Field::SafeTxHash,
+            Field::ExecCalldata,
+            Field::ExpectDomainHash,
+            Field::ExpectMessageHash,
+            Field::ExpectSafeTxHash,
+        ] {
+            assert!(!field.name().is_empty() && field.flag().starts_with("--"));
+        }
+        let warnings = [
+            InputWarning::BadChecksum {
+                field: Field::To,
+                given: "0xab".into(),
+                expected: "0xAB".into(),
+            },
+            InputWarning::UnknownChainAllowed(5),
+            InputWarning::BookChecksum {
+                name: "Ops".into(),
+                given: "0xab".into(),
+                expected: "0xAB".into(),
+            },
+        ];
+        for w in warnings {
+            assert!(w.to_string().len() > 40);
+        }
+        let errors = [
+            InputError::Missing { field: Field::To },
+            InputError::UnknownChain(5),
+            InputError::TooLarge {
+                what: "x",
+                limit: 1,
+            },
+            InputError::Json("bad".into()),
+        ];
+        for e in errors {
+            assert!(!e.to_string().is_empty());
+        }
+    }
+
+    #[test]
+    fn long_conflicting_values_are_summarised() {
+        let a = PartialTx {
+            data: Some(Bytes::from(vec![1; 200])),
+            ..PartialTx::default()
+        };
+        let b = PartialTx {
+            data: Some(Bytes::from(vec![2; 200])),
+            ..PartialTx::default()
+        };
+        let err = a.merge("flags", b, "file").unwrap_err().to_string();
+        assert!(err.contains("<a value of"), "{err}");
+    }
 }
