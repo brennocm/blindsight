@@ -17,6 +17,7 @@ mod guard_001;
 mod impl_001;
 mod module_001;
 mod owners_001;
+mod poison_001;
 mod refund_001;
 mod semantics_001;
 mod threshold_001;
@@ -223,11 +224,12 @@ pub enum Detector {
     Approval001,
     Approval002,
     Value001,
+    Poison001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 13] = [
+    pub const ALL: [Detector; 14] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -241,6 +243,7 @@ impl Detector {
         Detector::Approval001,
         Detector::Approval002,
         Detector::Value001,
+        Detector::Poison001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -279,6 +282,7 @@ impl Detector {
             Detector::Approval001 => include_str!("../../docs/detectors/BS-APPROVAL-001.md"),
             Detector::Approval002 => include_str!("../../docs/detectors/BS-APPROVAL-002.md"),
             Detector::Value001 => include_str!("../../docs/detectors/BS-VALUE-001.md"),
+            Detector::Poison001 => include_str!("../../docs/detectors/BS-POISON-001.md"),
         }
     }
 
@@ -352,6 +356,11 @@ impl Detector {
                 "Native value transfer",
                 "info; high with delegatecall",
             ),
+            Detector::Poison001 => (
+                poison_001::ID,
+                "Address looks like an address-book entry",
+                "high",
+            ),
         }
     }
 
@@ -371,6 +380,7 @@ impl Detector {
             Detector::Approval001 => approval_001::check(ctx, node),
             Detector::Approval002 => approval_002::check(ctx, node),
             Detector::Value001 => value_001::check(ctx, node),
+            Detector::Poison001 => poison_001::check(ctx, node),
         }
     }
 }
