@@ -582,6 +582,8 @@ dependencies = [
  "alloy-json-abi",
  "alloy-primitives",
  "alloy-sol-types",
+ "anstream",
+ "anstyle",
  "anyhow",
  "clap",
  "serde",
