@@ -168,11 +168,10 @@ Status: **approved** (2026-10-22). Each detector gets its own page
   was not built by a normal UI.
 
 ### `BS-POISON-001` — Address looks like an address-book entry
-- **Requires** `--address-book`.
 - **Logic:** for every address in the tree (targets, decoded address
-  arguments, `refundReceiver`, `gasToken`): not equal to any book entry, but
-  its first 4 and last 4 hex digits (case-insensitive) equal those of an entry
-  → **high**, naming the entry it imitates.
+  arguments, `refundReceiver`, `gasToken`): different from, but with the same
+  first 4 and last 4 hex digits (case-insensitive) as, the executing Safe or
+  (with `--address-book`) a book entry → **high**, naming what it imitates.
 - **Rationale:** address poisoning relies on UIs and humans checking only the
   start and end. `blindsight` never truncates addresses.
 

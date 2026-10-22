@@ -178,20 +178,19 @@ impl AddressBook {
         if self.by_address.contains_key(&address) {
             return Vec::new();
         }
-        // 4 hex digits are 2 bytes at each end.
-        let ends = |a: &Address| {
-            let b = a.as_slice();
-            (
-                b.get(..2).map(<[u8]>::to_vec),
-                b.get(18..).map(<[u8]>::to_vec),
-            )
-        };
-        let target = ends(&address);
         self.by_address
             .values()
-            .filter(|e| ends(&e.address) == target)
+            .filter(|e| looks_alike(address, e.address))
             .collect()
     }
+}
+
+/// Whether `a` and `b` are different addresses that share their first and
+/// last [`LOOKALIKE_HEX_DIGITS`] hex digits (case-insensitive).
+pub fn looks_alike(a: Address, b: Address) -> bool {
+    // 4 hex digits are 2 bytes at each end.
+    let (a, b) = (a.as_slice(), b.as_slice());
+    a != b && a.get(..2) == b.get(..2) && a.get(18..) == b.get(18..)
 }
 
 #[cfg(test)]

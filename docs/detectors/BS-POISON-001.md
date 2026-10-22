@@ -4,7 +4,7 @@
 
 ## What it detects
 
-With `--address-book`: any address in the call (target, decoded address arguments, refund fields) that is not in the book but has the same first four and last four hex digits (case-insensitive) as an entry.
+Any address in the call (target, decoded address arguments, refund fields) that is a different address but has the same first four and last four hex digits (case-insensitive) as the executing Safe or, with `--address-book`, as a book entry. The comparison with the Safe itself needs no address book (added in the final review).
 
 ## Why it matters
 

@@ -2,6 +2,8 @@
 
 use alloy_primitives::Address;
 
+use crate::addressbook::looks_alike;
+
 use super::{Context, Finding, Severity, finding};
 use crate::decode::{ArgValue, CallNode, DecodedCall};
 
@@ -35,11 +37,27 @@ fn addresses(ctx: &Context<'_>, node: &CallNode) -> Vec<Address> {
 }
 
 pub fn check(ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
-    let Some(book) = ctx.address_book else {
-        return Vec::new();
-    };
     let mut findings = Vec::new();
     for address in addresses(ctx, node) {
+        // The Safe itself is the address most worth imitating, and it is
+        // known even without an address book.
+        let safe = ctx.account.address;
+        if looks_alike(address, safe) {
+            findings.push(finding(
+                ID,
+                Severity::High,
+                node,
+                "Address looks like this Safe",
+                format!(
+                    "{} has the same first and last four hex digits as this Safe ({}) but is a different address. Address poisoning relies on people comparing only the start and end. Compare every character.",
+                    address.to_checksum(None),
+                    safe.to_checksum(None)
+                ),
+            ));
+        }
+        let Some(book) = ctx.address_book else {
+            continue;
+        };
         for entry in book.lookalikes(address) {
             findings.push(finding(
                 ID,
@@ -108,5 +126,19 @@ mod tests {
             )
             .is_empty()
         );
+    }
+
+    #[test]
+    fn imitating_the_safe_needs_no_address_book() {
+        // safe() is 0x5a5a…5a5a; this address shares 5a5a…5a5a ends.
+        let fake = addr(&format!("0x5a5a{}5a5a", "00".repeat(16)));
+        let mut t = tx(Address::repeat_byte(1), Operation::Call, vec![]);
+        t.refund_receiver = fake;
+        let f = findings(&t);
+        assert_eq!(
+            with_id(&f, "BS-POISON-001"),
+            [(Severity::High, "root".into())]
+        );
+        assert!(f.iter().any(|f| f.title == "Address looks like this Safe"));
     }
 }
