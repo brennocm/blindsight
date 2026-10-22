@@ -9,8 +9,22 @@ repository = "https://github.com/brennocm/blindsight"
 readme = "README.md"
 keywords = ["safe", "multisig", "eip712", "ethereum", "security"]
 categories = ["command-line-utilities", "cryptography::cryptocurrencies"]
-# Only what is needed to build and test the crate goes into the published package.
-include = ["src/**/*.rs", "data/*.json", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "CHANGELOG.md"]
+# Only what is needed to build and test the crate goes into the published
+# package: sources, embedded data, detector docs (compiled in), and the tests
+# with their fixtures so the published crate can verify itself.
+include = [
+    "src/**/*.rs",
+    "data/*.json",
+    "docs/detectors/*.md",
+    "tests/**/*.rs",
+    "tests/fixtures/**/*.json",
+    "tests/snapshots/*.snap",
+    "Cargo.toml",
+    "Cargo.lock",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+]
 
 [dependencies]
 alloy-dyn-abi = "1.7.3"

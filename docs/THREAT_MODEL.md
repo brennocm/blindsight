@@ -63,6 +63,11 @@ can change its output), or the signer's hardware wallet.
   values on the device. blindsight cannot see the device.
 - **Signers not identified.** ECDSA signatures in `execTransaction` calldata
   are classified but their signers are not recovered.
+- **Release tooling.** The release workflow installs `dist` 0.32.0 and
+  `cargo-cyclonedx` 0.5.5 with their official installer scripts, fetched over
+  HTTPS at pinned versions. A compromise of those releases would affect the
+  build; provenance attestations record which workflow produced each binary,
+  and anyone can rebuild from source with `cargo install --locked`.
 - **Upstream data trust.** Official addresses come from `safe-deployments`;
   if that repository were compromised at the recorded commit, so would the
   registry be (mitigated by review of the generated diff).
