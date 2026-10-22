@@ -4,7 +4,7 @@
 
 ## What it detects
 
-Any call with `value > 0`: info, with the amount in the chain's native currency. With `operation = 1`: high.
+Any call with `value > 0`: info, with the amount in the chain's native currency. With `operation = 1`: high. Also info when `performCreate`/`performCreate2` (official `CreateCall`) funds the contract it deploys, since that value is an argument rather than the call's own value (added in the final security review).
 
 ## Why it matters
 

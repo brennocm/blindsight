@@ -1,15 +1,34 @@
 //! `BS-VALUE-001`: native value sent with a call.
 
 use super::{Context, Finding, Severity, finding};
-use crate::decode::CallNode;
+use crate::decode::{CallNode, KnownCall};
 use crate::safe::Operation;
 
 /// Detector ID.
 pub const ID: &str = "BS-VALUE-001";
 
 pub fn check(ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
+    let mut findings = Vec::new();
+    // CreateCall funds the new contract from an argument, not from the
+    // call's own value: the Safe's balance moves either way.
+    if let Some(KnownCall::PerformCreate { value, .. } | KnownCall::PerformCreate2 { value, .. }) =
+        node.known_call()
+        && !value.is_zero()
+    {
+        findings.push(finding(
+            ID,
+            Severity::Info,
+            node,
+            "Funds a newly deployed contract",
+            format!(
+                "Deploys a contract from {} and sends it {}. The deployed code is not analysed.",
+                ctx.describe(node.executor),
+                ctx.native_amount(*value)
+            ),
+        ));
+    }
     if node.value.is_zero() {
-        return Vec::new();
+        return findings;
     }
     let amount = ctx.native_amount(node.value);
     let found = match node.operation {
@@ -34,7 +53,8 @@ pub fn check(ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
             ),
         ),
     };
-    vec![found]
+    findings.push(found);
+    findings
 }
 
 #[cfg(test)]
@@ -56,5 +76,24 @@ mod tests {
             with_id(&findings(&t), "BS-VALUE-001"),
             [(Severity::High, "root".into())]
         );
+    }
+
+    #[test]
+    fn value_passed_to_create_call() {
+        let create = tx(
+            addr("0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4"),
+            Operation::DelegateCall,
+            IHelpers::performCreateCall {
+                value: U256::from(10u64).pow(U256::from(18u64)),
+                deploymentData: Bytes::from(vec![0x60, 0x00]),
+            }
+            .abi_encode(),
+        );
+        let f = findings(&create);
+        assert_eq!(
+            with_id(&f, "BS-VALUE-001"),
+            [(Severity::Info, "root".into())]
+        );
+        assert!(f.iter().any(|f| f.detail.contains("1 ETH")));
     }
 }
