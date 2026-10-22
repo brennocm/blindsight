@@ -80,12 +80,15 @@ Given the parameters the signers' wallets were actually asked to sign:
 | Detector | Severity | Why it fires |
 |---|---|---|
 | `BS-DELEGATE-001` untrusted delegatecall | **critical** | `operation = 1` to `0x9622…7242`, not an official Safe helper on chain 1 |
-| `BS-SEMANTICS-001` unverifiable semantics | high (escalated to critical with delegatecall) | selector `0xa9059cbb` looks like ERC-20 `transfer`, but the target is not a known token; under delegatecall it is not a token transfer at all |
+| `BS-SEMANTICS-001` function name is a guess | **critical** (delegatecall) | selector `0xa9059cbb` looks like ERC-20 `transfer`, but the target is not a known token; under delegatecall it is not a token transfer at all |
 | `BS-TARGET-001` unknown target | info | target not in registry or address book |
+| `BS-REPLAY-001` domain without chain id | low | the Safe is version 1.1.1 |
 
-Verdict line: `CRITICAL — DO NOT SIGN`. Independently, the safeTxHash that
-`blindsight` prints for the *intended* transaction (a transfer to the warm
-wallet, nonce 71) would not have matched the hash the wallets were signing.
+The report also lists the three signatures of the executed transaction as
+`eth_sign` (`v = 31`). Verdict line: `CRITICAL: DO NOT SIGN without
+independent review`. Independently, the safeTxHash that `blindsight` prints
+for the *intended* transaction (a transfer to the warm wallet, nonce 71) would
+not have matched the hash the wallets were signing.
 
 This transaction is the regression test of the project
 (`tests/fixtures/real/bybit.json`).
@@ -134,6 +137,8 @@ contract that replaces the implementation in slot 0.
 | `BS-DELEGATE-001` untrusted delegatecall | **critical** |
 | `BS-DECODE-001` undecodable calldata | medium |
 | `BS-TARGET-001` unknown target | info |
+
+Both results are pinned by the regression tests in `tests/detect.rs`.
 
 Regression fixture: `tests/fixtures/real/wazirx.json`.
 
