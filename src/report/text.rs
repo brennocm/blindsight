@@ -45,7 +45,9 @@ fn wrap(text: &str, indent: &str) -> String {
     let mut out = String::new();
     let mut line = String::new();
     for word in text.split(' ').filter(|w| !w.is_empty()) {
-        if !line.is_empty() && indent.len() + line.len() + 1 + word.len() > WIDTH {
+        // Count characters, not bytes, so non-ASCII text wraps correctly.
+        let width = indent.chars().count() + line.chars().count() + 1 + word.chars().count();
+        if !line.is_empty() && width > WIDTH {
             out.push_str(indent);
             out.push_str(&line);
             out.push('\n');
