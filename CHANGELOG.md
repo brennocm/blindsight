@@ -25,3 +25,6 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Address book with look-alike (address poisoning) detection.
 - 20 detectors with stable IDs and severities, documented in
   `docs/detectors/`.
+- Commands `verify`, `hash`, `decode`, `detectors list|explain` and
+  `version`; text and JSON output (`schema_version` 1); expected-hash checks
+  with `--expect-*`; exit codes 0/1/2/3 (`docs/OUTPUT.md`).
