@@ -1,0 +1,39 @@
+[package]
+name = "blindsight-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+# Not a member of the main package's workspace: fuzzing needs nightly and
+# libfuzzer, which never enter blindsight's own dependency graph.
+[workspace]
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[dependencies.blindsight]
+path = ".."
+
+[[bin]]
+name = "input_json"
+path = "fuzz_targets/input_json.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "input_exec_calldata"
+path = "fuzz_targets/input_exec_calldata.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "input_fields"
+path = "fuzz_targets/input_fields.rs"
+test = false
+doc = false
+bench = false
