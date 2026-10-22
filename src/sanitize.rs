@@ -30,6 +30,13 @@ pub fn sanitize(s: &str) -> String {
     out
 }
 
+/// Like [`sanitize`], but keeps line breaks: each line is sanitised on its
+/// own. For multi-line messages produced from input, such as argument
+/// parser errors.
+pub fn sanitize_lines(s: &str) -> String {
+    s.split('\n').map(sanitize).collect::<Vec<_>>().join("\n")
+}
+
 /// A sanitised excerpt of `s` for error messages: at most [`EXCERPT_CHARS`]
 /// characters, followed by the total length when cut.
 ///
@@ -92,6 +99,14 @@ mod tests {
     fn keeps_printable_text() {
         let text = "Transfer 1.5 USDC to Zoë — 0xAbC… ✓ 日本";
         assert_eq!(sanitize(text), text);
+    }
+
+    #[test]
+    fn sanitize_lines_keeps_line_breaks_only() {
+        assert_eq!(
+            sanitize_lines("error: bad\u{1b}[2J\n\ttip\r"),
+            "error: bad\\u{1b}[2J\n\\u{9}tip\\u{d}"
+        );
     }
 
     #[test]

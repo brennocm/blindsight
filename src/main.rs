@@ -26,7 +26,7 @@ use blindsight::input::{
 };
 use blindsight::registry::Registry;
 use blindsight::report::{self, EXIT_ERROR, Options, Report};
-use blindsight::sanitize::sanitize;
+use blindsight::sanitize::{sanitize, sanitize_lines};
 use clap::{Args, Parser, Subcommand, ValueEnum};
 
 /// Offline verifier for Safe multisig transactions.
@@ -213,7 +213,21 @@ struct DecodeArgs {
 }
 
 fn main() -> ExitCode {
-    let cli = Cli::parse();
+    // clap's errors quote the offending argument: sanitise them like any
+    // other input-derived output. Help and version text are ours.
+    let cli = match Cli::try_parse() {
+        Ok(cli) => cli,
+        Err(err) => {
+            let text = err.render().to_string();
+            let code = u8::try_from(err.exit_code()).unwrap_or(EXIT_ERROR);
+            if err.use_stderr() {
+                let _ = write!(io::stderr(), "{}", sanitize_lines(&text));
+            } else {
+                let _ = write!(io::stdout(), "{text}");
+            }
+            return ExitCode::from(code);
+        }
+    };
     let choice = match cli.color {
         ColorWhen::Auto => anstream::ColorChoice::Auto,
         ColorWhen::Always => anstream::ColorChoice::Always,

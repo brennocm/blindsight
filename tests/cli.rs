@@ -421,3 +421,22 @@ fn addresses_and_hashes_are_never_truncated() {
         assert!(out.contains(full), "{full} missing");
     }
 }
+
+#[test]
+fn argument_parser_errors_are_sanitised() {
+    // clap strips ANSI sequences itself but, before blindsight sanitised its
+    // errors, passed a right-to-left override and a carriage return through.
+    blindsight()
+        .args(["verify", "--format", "a\u{202e}b\rc"])
+        .assert()
+        .code(2)
+        .stderr(predicate::str::contains("\\u{202e}"))
+        .stderr(predicate::str::contains("\u{202e}").not())
+        .stderr(predicate::str::contains("\r").not());
+    // Help still works and exits 0.
+    blindsight()
+        .arg("--help")
+        .assert()
+        .code(0)
+        .stdout(predicate::str::contains("Usage"));
+}
