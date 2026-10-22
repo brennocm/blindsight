@@ -81,16 +81,14 @@ pub fn unpack(transactions: &[u8]) -> Result<Vec<BatchEntry>, MultiSendError> {
     let mut rest = transactions;
     while !rest.is_empty() {
         let index = entries.len();
-        let truncated = MultiSendError::TruncatedHeader {
-            index,
-            remaining: rest.len(),
-        };
+        let remaining = rest.len();
+        let truncated = || MultiSendError::TruncatedHeader { index, remaining };
         // Each step returns `None` instead of panicking if bytes run out;
         // fixed-size arrays make the field widths part of the types.
-        let (&byte, after) = rest.split_first().ok_or(truncated.clone())?;
-        let (to_bytes, after) = after.split_first_chunk::<20>().ok_or(truncated.clone())?;
-        let (value_bytes, after) = after.split_first_chunk::<32>().ok_or(truncated.clone())?;
-        let (len_bytes, after) = after.split_first_chunk::<32>().ok_or(truncated)?;
+        let (&byte, after) = rest.split_first().ok_or_else(truncated)?;
+        let (to_bytes, after) = after.split_first_chunk::<20>().ok_or_else(truncated)?;
+        let (value_bytes, after) = after.split_first_chunk::<32>().ok_or_else(truncated)?;
+        let (len_bytes, after) = after.split_first_chunk::<32>().ok_or_else(truncated)?;
 
         let operation =
             Operation::try_from(byte).map_err(|_| MultiSendError::BadOperation { index, byte })?;
@@ -98,11 +96,11 @@ pub fn unpack(transactions: &[u8]) -> Result<Vec<BatchEntry>, MultiSendError> {
         let value = U256::from_be_bytes(*value_bytes);
         let declared = U256::from_be_bytes(*len_bytes);
 
-        let remaining = after.len();
+        let left = after.len();
         let too_long = || MultiSendError::TruncatedData {
             index,
             declared,
-            remaining,
+            remaining: left,
         };
         let data_len = usize::try_from(declared).map_err(|_| too_long())?;
         let (data, next) = after.split_at_checked(data_len).ok_or_else(too_long)?;

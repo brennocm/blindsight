@@ -998,7 +998,7 @@ mod tests {
             },
             K::PerformCreate2 {
                 value: n,
-                deployment_data: bytes.clone(),
+                deployment_data: bytes,
                 salt: h,
             },
             K::MigrateSingleton,

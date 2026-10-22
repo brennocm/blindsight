@@ -96,7 +96,7 @@ proptest! {
 
     #[test]
     fn hashing_is_deterministic(account in account(), tx in safe_tx()) {
-        prop_assert_eq!(compute_manual(&account, &tx), compute_manual(&account, &tx.clone()));
+        prop_assert_eq!(compute_manual(&account, &tx), compute_manual(&account, &tx));
     }
 
     #[test]

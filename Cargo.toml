@@ -65,6 +65,9 @@ semicolon_if_nothing_returned = "warn"
 uninlined_format_args = "warn"
 doc_markdown = "warn"
 explicit_iter_loop = "warn"
+or_fun_call = "warn"
+redundant_clone = "warn"
+missing_errors_doc = "warn"
 
 [profile.release]
 lto = true

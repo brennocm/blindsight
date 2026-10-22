@@ -112,7 +112,7 @@ mod tests {
         // Sent to another address: not an owner change of this Safe.
         assert!(
             with_id(
-                &findings(&tx(Address::repeat_byte(9), Operation::Call, swap.clone())),
+                &findings(&tx(Address::repeat_byte(9), Operation::Call, swap)),
                 "BS-OWNERS-001"
             )
             .is_empty()

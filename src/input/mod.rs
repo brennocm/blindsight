@@ -363,8 +363,9 @@ impl PartialTx {
     /// [`InputError::UnknownChain`] for a chain without an official Safe
     /// deployment unless `allow_unknown_chain`.
     pub fn finish(self, allow_unknown_chain: bool) -> Result<TxInput, InputError> {
-        let missing = |field| InputError::Missing { field };
-        let chain_id = self.chain_id.ok_or(missing(Field::ChainId))?;
+        // Closures build the error only when the field is missing.
+        let missing = |field| move || InputError::Missing { field };
+        let chain_id = self.chain_id.ok_or_else(missing(Field::ChainId))?;
         let mut warnings = self.warnings;
         if registry::chains()?.get(chain_id).is_none() {
             if allow_unknown_chain {
@@ -374,12 +375,12 @@ impl PartialTx {
             }
         }
         let account = SafeAccount {
-            address: self.safe.ok_or(missing(Field::Safe))?,
+            address: self.safe.ok_or_else(missing(Field::Safe))?,
             chain_id,
-            version: self.version.ok_or(missing(Field::SafeVersion))?,
+            version: self.version.ok_or_else(missing(Field::SafeVersion))?,
         };
         let tx = SafeTx {
-            to: self.to.ok_or(missing(Field::To))?,
+            to: self.to.ok_or_else(missing(Field::To))?,
             value: self.value.unwrap_or_default(),
             data: self.data.unwrap_or_default(),
             operation: self.operation.unwrap_or(Operation::Call),
@@ -388,7 +389,7 @@ impl PartialTx {
             gas_price: self.gas_price.unwrap_or_default(),
             gas_token: self.gas_token.unwrap_or_default(),
             refund_receiver: self.refund_receiver.unwrap_or_default(),
-            nonce: self.nonce.ok_or(missing(Field::Nonce))?,
+            nonce: self.nonce.ok_or_else(missing(Field::Nonce))?,
         };
         Ok(TxInput {
             account,

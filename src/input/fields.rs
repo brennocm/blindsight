@@ -26,6 +26,10 @@ fn strip_hex_prefix(s: &str) -> Option<&str> {
 
 /// An unsigned 256-bit integer, written in decimal (`"1000"`) or hex
 /// (`"0x3e8"`). No sign, no separators, no whitespace inside.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] for anything else, or a value above 2^256 − 1.
 pub fn parse_uint(field: Field, s: &str) -> Result<U256, InputError> {
     let t = s.trim();
     let (digits, radix) = match strip_hex_prefix(t) {
@@ -48,6 +52,10 @@ pub fn parse_uint(field: Field, s: &str) -> Result<U256, InputError> {
 }
 
 /// A `u64` (chain ids), decimal or `0x` hex.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] if it is not a number or does not fit in 64 bits.
 pub fn parse_u64(field: Field, s: &str) -> Result<u64, InputError> {
     let value = parse_uint(field, s)?;
     u64::try_from(value).map_err(|_| invalid(field, s, "number does not fit in 64 bits"))
@@ -59,6 +67,10 @@ pub fn parse_u64(field: Field, s: &str) -> Result<u64, InputError> {
 /// accepted as is. A mixed-case address claims an EIP-55 checksum; if the
 /// checksum is wrong, the address is still used but a warning is returned,
 /// because a corrupted checksum can be a sign of tampering or a typo.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] if it is not `0x` plus 40 hex digits.
 pub fn parse_address(field: Field, s: &str) -> Result<(Address, Option<InputWarning>), InputError> {
     let t = s.trim();
     let Some(hex) = strip_hex_prefix(t) else {
@@ -92,6 +104,11 @@ pub fn parse_address(field: Field, s: &str) -> Result<(Address, Option<InputWarn
 
 /// A byte string: `0x` followed by an even number of hex digits. `""` and
 /// `"0x"` are empty. At most [`MAX_CALLDATA_BYTES`] bytes.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] for bad hex or an odd number of digits,
+/// [`InputError::TooLarge`] past the limit.
 pub fn parse_bytes(field: Field, s: &str) -> Result<Bytes, InputError> {
     let t = s.trim();
     if t.is_empty() {
@@ -121,6 +138,10 @@ pub fn parse_bytes(field: Field, s: &str) -> Result<Bytes, InputError> {
 }
 
 /// A 32-byte hash: `0x` followed by 64 hex digits.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] for anything else.
 pub fn parse_hash(field: Field, s: &str) -> Result<B256, InputError> {
     let t = s.trim();
     let Some(hex) = strip_hex_prefix(t)
@@ -133,6 +154,10 @@ pub fn parse_hash(field: Field, s: &str) -> Result<B256, InputError> {
 }
 
 /// The operation: `0`/`call` or `1`/`delegatecall` (case-insensitive).
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] for any other value.
 pub fn parse_operation(field: Field, s: &str) -> Result<Operation, InputError> {
     match s.trim().to_ascii_lowercase().as_str() {
         "0" | "call" => Ok(Operation::Call),
@@ -146,6 +171,10 @@ pub fn parse_operation(field: Field, s: &str) -> Result<Operation, InputError> {
 }
 
 /// A Safe version such as `1.4.1`.
+///
+/// # Errors
+///
+/// [`InputError::Invalid`] for a version blindsight does not support.
 pub fn parse_version(field: Field, s: &str) -> Result<SafeVersion, InputError> {
     s.parse().map_err(|_| {
         invalid(
