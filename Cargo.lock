@@ -580,6 +580,7 @@ dependencies = [
  "anyhow",
  "clap",
  "proptest",
+ "serde_json",
  "thiserror",
 ]
 

@@ -1,5 +1,13 @@
 //! End-to-end tests of the `blindsight` binary.
 
+// Test code: a panic is how a test reports failure (see clippy.toml and ADR 0004).
+#![allow(
+    clippy::unwrap_used,
+    clippy::expect_used,
+    clippy::panic,
+    clippy::indexing_slicing
+)]
+
 use std::process::Command;
 
 fn blindsight() -> Command {

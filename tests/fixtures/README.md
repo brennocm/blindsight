@@ -64,5 +64,16 @@ cd scripts/fixtures
 | Same Safe, different chain (domain differs) | `arb-multisend-141` vs `op-multisend-141` |
 
 Not covered by real vectors: v1.2.0 (same typehash and domain as 1.1.1),
-v0.1.0 (not supported). Synthetic fixtures for edge cases live next to the
-hashing tests.
+v0.1.0 (not supported).
+
+## `synthetic/` — edge cases
+
+`hashing-edge-cases.json` holds 24 cases no real transaction covers: empty,
+one-byte, 33-byte and 16 KiB calldata; all-zero and all-maximum fields for
+every supported version; a chain id of 0 and of 2^64 − 1; and the same
+pre-1.3.0 transaction on two chains (identical hashes: no chain id in the
+domain). Expected hashes come from `scripts/fixtures/safehash.py`
+(`gen_synthetic.py` regenerates the file, without network); the Rust tests
+check both Rust implementations against them, so each expected value is
+confirmed by an implementation written independently of the code under
+test.
