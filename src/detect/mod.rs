@@ -17,6 +17,7 @@ mod fallback_001;
 mod guard_001;
 mod impl_001;
 mod module_001;
+mod nested_001;
 mod nonce_001;
 mod owners_001;
 mod poison_001;
@@ -233,11 +234,12 @@ pub enum Detector {
     Decode001,
     Self001,
     Nonce001,
+    Nested001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 18] = [
+    pub const ALL: [Detector; 19] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -256,6 +258,7 @@ impl Detector {
         Detector::Decode001,
         Detector::Self001,
         Detector::Nonce001,
+        Detector::Nested001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -299,6 +302,7 @@ impl Detector {
             Detector::Decode001 => include_str!("../../docs/detectors/BS-DECODE-001.md"),
             Detector::Self001 => include_str!("../../docs/detectors/BS-SELF-001.md"),
             Detector::Nonce001 => include_str!("../../docs/detectors/BS-NONCE-001.md"),
+            Detector::Nested001 => include_str!("../../docs/detectors/BS-NESTED-001.md"),
         }
     }
 
@@ -389,6 +393,11 @@ impl Detector {
                 "info; medium if the function is not a Safe function",
             ),
             Detector::Nonce001 => (nonce_001::ID, "Suspicious nonce", "medium; info if queued"),
+            Detector::Nested001 => (
+                nested_001::ID,
+                "Nested Safe transaction or opaque hash approval",
+                "info (nested, decoded), high (approveHash, too deep)",
+            ),
         }
     }
 
@@ -413,6 +422,7 @@ impl Detector {
             Detector::Decode001 => decode_001::check(ctx, node),
             Detector::Self001 => self_001::check(ctx, node),
             Detector::Nonce001 => nonce_001::check(ctx, node),
+            Detector::Nested001 => nested_001::check(ctx, node),
         }
     }
 }
