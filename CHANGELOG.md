@@ -46,3 +46,10 @@ Fixed during the final security review, before any release:
   critical.
 - `signMessage` through `SignMessageLib` and value sent through `CreateCall`
   now produce findings.
+- Addresses imitating the Safe itself are flagged even without an address
+  book; address-book names that differ only by case or spaces are rejected.
+- Characters that render as blank space (Hangul fillers, variation
+  selectors, braille blank) are escaped in all output.
+- Token amounts are no longer formatted with token decimals when the token
+  function is delegatecalled.
+- Only one input may be read from standard input.
