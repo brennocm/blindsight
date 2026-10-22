@@ -1,0 +1,76 @@
+# cargo-deny policy. Run with `cargo deny check`.
+# The [bans] section is what makes blindsight offline by construction: see
+# docs/adr/0002-offline-by-construction.md.
+
+[graph]
+# Check the full graph, dev-dependencies included: test tooling also runs on
+# the machines of people who build blindsight from source.
+all-features = true
+
+[advisories]
+# Every RustSec advisory (vulnerability, unmaintained, unsound, yanked) fails
+# the check unless it is listed here with a reason.
+version = 2
+yanked = "deny"
+ignore = []
+
+[licenses]
+version = 2
+# Permissive licenses compatible with Apache-2.0 distribution. Only licenses
+# actually used are listed; a new one is added deliberately, in review.
+allow = [
+    "Apache-2.0",
+    "MIT",
+    "Unicode-3.0",
+]
+confidence-threshold = 0.93
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+allow-wildcard-paths = false
+# No crate that can open a network connection or run an async runtime may enter
+# the dependency graph, directly or transitively, including behind a feature.
+deny = [
+    # HTTP clients and servers
+    { name = "reqwest", reason = "network: blindsight never uses the network" },
+    { name = "hyper", reason = "network: blindsight never uses the network" },
+    { name = "hyper-util", reason = "network: blindsight never uses the network" },
+    { name = "h2", reason = "network: blindsight never uses the network" },
+    { name = "h3", reason = "network: blindsight never uses the network" },
+    { name = "ureq", reason = "network: blindsight never uses the network" },
+    { name = "surf", reason = "network: blindsight never uses the network" },
+    { name = "isahc", reason = "network: blindsight never uses the network" },
+    { name = "attohttpc", reason = "network: blindsight never uses the network" },
+    { name = "minreq", reason = "network: blindsight never uses the network" },
+    { name = "curl", reason = "network: blindsight never uses the network" },
+    { name = "curl-sys", reason = "network: blindsight never uses the network" },
+    { name = "tungstenite", reason = "network: blindsight never uses the network" },
+    { name = "quinn", reason = "network: blindsight never uses the network" },
+    # TLS stacks
+    { name = "rustls", reason = "network: blindsight never uses the network" },
+    { name = "native-tls", reason = "network: blindsight never uses the network" },
+    { name = "openssl", reason = "network: blindsight never uses the network" },
+    { name = "openssl-sys", reason = "network: blindsight never uses the network" },
+    # Async runtimes and socket/event-loop layers
+    { name = "tokio", reason = "async runtime: blindsight is synchronous and offline" },
+    { name = "async-std", reason = "async runtime: blindsight is synchronous and offline" },
+    { name = "smol", reason = "async runtime: blindsight is synchronous and offline" },
+    { name = "async-io", reason = "async runtime: blindsight is synchronous and offline" },
+    { name = "mio", reason = "socket event loop: blindsight never uses the network" },
+    { name = "socket2", reason = "sockets: blindsight never uses the network" },
+    # Ethereum: umbrella crates that pull providers and transports
+    { name = "alloy", reason = "umbrella crate pulls providers, HTTP transport and tokio; use alloy sub-crates" },
+    { name = "alloy-provider", reason = "network: blindsight never uses the network" },
+    { name = "alloy-transport", reason = "network: blindsight never uses the network" },
+    { name = "alloy-rpc-client", reason = "network: blindsight never uses the network" },
+    { name = "ethers", reason = "umbrella crate with network providers" },
+    { name = "ethers-providers", reason = "network: blindsight never uses the network" },
+]
+
+[sources]
+# Only crates.io. No git dependencies, no other registries.
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
