@@ -52,13 +52,17 @@ pub fn excerpt(s: &str) -> String {
     }
 }
 
-/// Control characters (C0, DEL, C1) and Unicode format characters that change
-/// how surrounding text is displayed without being visible themselves.
+/// Control characters (C0, DEL, C1), Unicode format characters that change
+/// how surrounding text is displayed, and characters that render as blank
+/// space, which could make two different names look the same.
 fn is_unsafe(c: char) -> bool {
     c.is_control()
         || matches!(
             c,
             '\u{00AD}'                    // soft hyphen
+            | '\u{034F}'                  // combining grapheme joiner
+            | '\u{115F}'..='\u{1160}'     // Hangul choseong/jungseong fillers
+            | '\u{17B4}'..='\u{17B5}'     // Khmer inherent vowels (invisible)
             | '\u{061C}'                  // Arabic letter mark
             | '\u{180E}'                  // Mongolian vowel separator
             | '\u{200B}'..='\u{200F}'     // zero-width space/joiners, LRM, RLM
@@ -66,9 +70,14 @@ fn is_unsafe(c: char) -> bool {
             | '\u{202A}'..='\u{202E}'     // bidi embeddings and overrides
             | '\u{2060}'..='\u{2064}'     // word joiner, invisible operators
             | '\u{2066}'..='\u{206F}'     // bidi isolates, deprecated formats
+            | '\u{2800}'                  // braille pattern blank
+            | '\u{3164}'                  // Hangul filler
+            | '\u{FE00}'..='\u{FE0F}'     // variation selectors
             | '\u{FEFF}'                  // zero-width no-break space (BOM)
+            | '\u{FFA0}'                  // halfwidth Hangul filler
             | '\u{FFF9}'..='\u{FFFB}'     // interlinear annotations
-            | '\u{E0000}'..='\u{E007F}' // tag characters
+            | '\u{E0000}'..='\u{E007F}'   // tag characters
+            | '\u{E0100}'..='\u{E01EF}' // variation selectors supplement
         )
 }
 
@@ -93,6 +102,24 @@ mod tests {
         assert_eq!(sanitize("\u{FEFF}x"), "\\u{feff}x");
         assert_eq!(sanitize("a\nb\tc"), "a\\u{a}b\\u{9}c");
         assert_eq!(sanitize("\u{9b}31m"), "\\u{9b}31m"); // C1 CSI
+    }
+
+    #[test]
+    fn escapes_characters_that_render_blank() {
+        for c in [
+            '\u{034F}',
+            '\u{115F}',
+            '\u{1160}',
+            '\u{17B4}',
+            '\u{2800}',
+            '\u{3164}',
+            '\u{FE0F}',
+            '\u{FFA0}',
+            '\u{E0100}',
+        ] {
+            let text = format!("Treasury{c}");
+            assert_ne!(sanitize(&text), text, "U+{:04X}", u32::from(c));
+        }
     }
 
     #[test]
