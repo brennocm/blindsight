@@ -1,0 +1,40 @@
+---
+source: tests/cli.rs
+expression: out
+---
+blindsight 0.1.0: offline verification of a Safe transaction (hash)
+
+HASHES: compare with your hardware wallet
+  Safe            0x27fD43BABfbe83a81d14665b1a6fB8030A60C9b4 (this Safe)
+  Chain           1 (Ethereum Mainnet)
+  Safe version    1.3.0
+  Domain hash     0xa630c4b736c54422250992ab01205a95e6824e0c34a2ab8d4406521b3d6da09a
+    as on Ledger  0xA630C4B736C54422250992AB01205A95E6824E0C34A2AB8D4406521B3D6DA09A
+  Message hash    0x7cd839f0a7ba33ab90b769cb93dc0aca579aad246b996db5cf34a4f31b7024e0
+    as on Ledger  0x7CD839F0A7BA33AB90B769CB93DC0ACA579AAD246B996DB5CF34A4F31B7024E0
+  safeTxHash      0x4e82121a3bc2fb62c0b06ab5fff5ca965ceab4f51cc949c6e50d85ed63e6aa70
+  Ledger shows "Domain hash" and "Message hash" in upper case. Trezor shows the
+  Safe address and chain id under "Confirm domain", the fields, and optionally
+  "Confirm message hash". If your device shows a single hash (eth_sign), it is
+  the safeTxHash. Every character must match; see docs/hardware-wallets.md.
+
+SIGNATURES (from the execTransaction calldata)
+  #0 (v=31) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+  #1 (v=32) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+  #2 (v=1) hash approved on chain by 0xd967113224C354600B3151E27Aaba53e3034f372
+  #3 (v=32) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+
+RAW PARAMETERS
+  to              0xfbfFEF83b1C172fE3BC86C1CCB036AB9F3efCAF2
+  value           0
+  data            0x804e1f0a000000000000000000000000ef279c2ab14960aa319008cbea384b9f8ac35fc6 (36 bytes)
+  operation       1 (DELEGATECALL)
+  safeTxGas       0
+  baseGas         0
+  gasPrice        0
+  gasToken        0x0000000000000000000000000000000000000000
+  refundReceiver  0x0000000000000000000000000000000000000000
+  nonce           1718

@@ -1,0 +1,27 @@
+---
+source: tests/cli.rs
+expression: list
+---
+ID                TITLE                                                SEVERITY
+BS-DELEGATE-001   Delegatecall to an untrusted contract                critical
+BS-DELEGATE-002   Delegatecall inside a batch                          critical (untrusted target), medium (official helper), info (MultiSendCallOnly)
+BS-SEMANTICS-001  Function name is a guess                             low; critical under delegatecall
+BS-OWNERS-001     Owner set change                                     high; critical if the new threshold is 1
+BS-THRESHOLD-001  Threshold change                                     high; critical if the new threshold is 1
+BS-MODULE-001     Module enabled or disabled                           critical (enable), medium (disable)
+BS-GUARD-001      Transaction or module guard change                   high
+BS-FALLBACK-001   Fallback handler change                              high; low if the handler is official
+BS-IMPL-001       Implementation (singleton) change                    critical; info for official singletons and migrations
+BS-REFUND-001     Gas refund paid by the Safe                          high (token or uncapped native refund), medium (capped native), low (inert fields)
+BS-APPROVAL-001   Unlimited or operator approval                       high (unlimited or operator), info (bounded or revoked)
+BS-APPROVAL-002   Permit2 allowance (experimental)                     high (unlimited), info (bounded)
+BS-VALUE-001      Native value transfer                                info; high with delegatecall
+BS-POISON-001     Address looks like an address-book entry             high
+BS-TARGET-001     Unknown target                                       info
+BS-DECODE-001     Undecodable or malformed calldata                    medium; high for a malformed batch
+BS-SELF-001       Call to the Safe itself                              info; medium if the function is not a Safe function
+BS-NONCE-001      Suspicious nonce                                     medium; info if queued
+BS-NESTED-001     Nested Safe transaction or opaque hash approval      info (nested, decoded), high (approveHash, too deep)
+BS-REPLAY-001     Domain without chain id (pre-1.3.0)                  low
+
+Run `blindsight detectors explain <ID>` for details.

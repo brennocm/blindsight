@@ -1,0 +1,82 @@
+---
+source: tests/cli.rs
+expression: out
+---
+blindsight 0.1.0: offline verification of a Safe transaction (verify)
+
+CRITICAL: DO NOT SIGN without independent review
+Findings: 2 critical, 1 low, 1 info
+A clean result does not make a transaction safe: blindsight does not simulate it. Compare the hashes below with your wallet.
+
+FINDINGS (4)
+  CRITICAL  BS-DELEGATE-001   root
+            Delegatecall to a contract that is not an official Safe helper
+            This call runs the code at
+            0x96221423681A6d52E184D440a8eFCEbB105C7242 with the storage of
+            0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4 (this Safe). That code
+            can replace the owners, threshold, modules, guard, fallback handler
+            and the implementation pointer in storage slot 0, after which the
+            attacker no longer needs any signature. This is how the Bybit (2025)
+            and WazirX (2024) Safes were taken over. Do not sign unless you have
+            reviewed the target's source and know why it needs delegatecall.
+  CRITICAL  BS-SEMANTICS-001  root
+            "transfer" is a guess from the selector, not a verified function
+            The calldata matches transfer(address,uint256), but
+            0x96221423681A6d52E184D440a8eFCEbB105C7242 is not known to implement
+            it: under delegatecall a token function moves no tokens: the
+            target's code runs on the Safe's own storage. Any contract can give
+            a function this signature and do something else; the Bybit attack
+            used transfer(address,uint256), executed by delegatecall, to replace
+            the Safe's implementation. Treat the decoded name and arguments as a
+            layout, not as a description.
+  LOW       BS-REPLAY-001     root
+            Signature valid on every chain
+            Safe 1.1.1 has no chain id in its signing domain, so this signature
+            is also valid on any other chain where a Safe exists at
+            0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4 with the same nonce. Make
+            sure no such Safe exists, or that it is under the same control.
+  INFO      BS-TARGET-001     root
+            Unknown target
+            0x96221423681A6d52E184D440a8eFCEbB105C7242 is not an official Safe
+            contract, a listed token or an address-book entry. Check it against
+            a source you trust (add it to your address book to label it).
+
+HASHES: compare with your hardware wallet
+  Safe            0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4 (this Safe)
+  Chain           1 (Ethereum Mainnet)
+  Safe version    1.1.1 (no chain id in the domain)
+  Domain hash     0xb3ded2bdbff5db1a87f6d551fa256e9f2bd6517a3bb84f4c2ea863fb3a559622
+    as on Ledger  0xB3DED2BDBFF5DB1A87F6D551FA256E9F2BD6517A3BB84F4C2EA863FB3A559622
+  Message hash    0xea68fc75e93bf7286b1257680ca8e2033bfadd8e1cb8a23f3ca18f1031ecf1e0
+    as on Ledger  0xEA68FC75E93BF7286B1257680CA8E2033BFADD8E1CB8A23F3CA18F1031ECF1E0
+  safeTxHash      0xb3476d061aeb8fc1d605a873c483a2402d88a68a9cdd1a8b47655dd55ba004f8
+  Ledger shows "Domain hash" and "Message hash" in upper case. Trezor shows the
+  Safe address and chain id under "Confirm domain", the fields, and optionally
+  "Confirm message hash". If your device shows a single hash (eth_sign), it is
+  the safeTxHash. Every character must match; see docs/hardware-wallets.md.
+
+CALLS
+  root  DELEGATECALL 0x96221423681A6d52E184D440a8eFCEbB105C7242
+      transfer(address,uint256)  [UNVERIFIED: name inferred from the selector only]
+        to               0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516
+        amount           0
+
+SIGNATURES (from the execTransaction calldata)
+  #0 (v=31) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+  #1 (v=31) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+  #2 (v=31) eth_sign: the hash was signed as a raw message; the device could
+  only show a 32-byte hash, not the transaction
+
+RAW PARAMETERS
+  to              0x96221423681A6d52E184D440a8eFCEbB105C7242
+  value           0
+  data            0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000 (68 bytes)
+  operation       1 (DELEGATECALL)
+  safeTxGas       45746
+  baseGas         0
+  gasPrice        0
+  gasToken        0x0000000000000000000000000000000000000000
+  refundReceiver  0x0000000000000000000000000000000000000000
+  nonce           71

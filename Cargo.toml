@@ -17,6 +17,7 @@ alloy-dyn-abi = "1.7.3"
 alloy-json-abi = "1.7.3"
 alloy-primitives = "1.7.3"
 alloy-sol-types = "1.7.3"
+anstream = "1.0.0"
 anstyle = "1.0.14"
 anyhow = "1.0.104"
 clap = { version = "4.6.7", features = ["derive"] }
@@ -57,5 +58,7 @@ codegen-units = 1
 strip = "symbols"
 
 [dev-dependencies]
+assert_cmd = "2.2.2"
 insta = "1.49.0"
+predicates = "3.1.4"
 proptest = "1.12.0"

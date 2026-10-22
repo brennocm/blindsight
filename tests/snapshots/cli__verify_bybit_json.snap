@@ -1,0 +1,122 @@
+---
+source: tests/cli.rs
+expression: out
+---
+{
+  "schema_version": 1,
+  "tool": {
+    "name": "blindsight",
+    "version": "0.1.0"
+  },
+  "command": "verify",
+  "safe": {
+    "address": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
+    "chain_id": 1,
+    "chain_name": "Ethereum Mainnet",
+    "version": "1.1.1",
+    "domain_has_chain_id": false
+  },
+  "transaction": {
+    "to": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
+    "value": "0",
+    "data": "0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000",
+    "operation": 1,
+    "safeTxGas": "45746",
+    "baseGas": "0",
+    "gasPrice": "0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "71"
+  },
+  "hashes": {
+    "domain_hash": "0xb3ded2bdbff5db1a87f6d551fa256e9f2bd6517a3bb84f4c2ea863fb3a559622",
+    "message_hash": "0xea68fc75e93bf7286b1257680ca8e2033bfadd8e1cb8a23f3ca18f1031ecf1e0",
+    "safe_tx_hash": "0xb3476d061aeb8fc1d605a873c483a2402d88a68a9cdd1a8b47655dd55ba004f8"
+  },
+  "hash_checks": [],
+  "hash_mismatch": false,
+  "verdict": {
+    "highest_severity": "critical",
+    "fail_on": "high"
+  },
+  "findings": [
+    {
+      "id": "BS-DELEGATE-001",
+      "severity": "critical",
+      "title": "Delegatecall to a contract that is not an official Safe helper",
+      "detail": "This call runs the code at 0x96221423681A6d52E184D440a8eFCEbB105C7242 with the storage of 0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4 (this Safe). That code can replace the owners, threshold, modules, guard, fallback handler and the implementation pointer in storage slot 0, after which the attacker no longer needs any signature. This is how the Bybit (2025) and WazirX (2024) Safes were taken over. Do not sign unless you have reviewed the target's source and know why it needs delegatecall.",
+      "path": "root"
+    },
+    {
+      "id": "BS-SEMANTICS-001",
+      "severity": "critical",
+      "title": "\"transfer\" is a guess from the selector, not a verified function",
+      "detail": "The calldata matches transfer(address,uint256), but 0x96221423681A6d52E184D440a8eFCEbB105C7242 is not known to implement it: under delegatecall a token function moves no tokens: the target's code runs on the Safe's own storage. Any contract can give a function this signature and do something else; the Bybit attack used transfer(address,uint256), executed by delegatecall, to replace the Safe's implementation. Treat the decoded name and arguments as a layout, not as a description.",
+      "path": "root"
+    },
+    {
+      "id": "BS-REPLAY-001",
+      "severity": "low",
+      "title": "Signature valid on every chain",
+      "detail": "Safe 1.1.1 has no chain id in its signing domain, so this signature is also valid on any other chain where a Safe exists at 0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4 with the same nonce. Make sure no such Safe exists, or that it is under the same control.",
+      "path": "root"
+    },
+    {
+      "id": "BS-TARGET-001",
+      "severity": "info",
+      "title": "Unknown target",
+      "detail": "0x96221423681A6d52E184D440a8eFCEbB105C7242 is not an official Safe contract, a listed token or an address-book entry. Check it against a source you trust (add it to your address book to label it).",
+      "path": "root"
+    }
+  ],
+  "calls": {
+    "path": "root",
+    "executor": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
+    "to": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
+    "to_label": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
+    "value": "0",
+    "operation": 1,
+    "data": "0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000",
+    "decoded": {
+      "kind": "known",
+      "function": "transfer",
+      "signature": "transfer(address,uint256)",
+      "semantics": {
+        "verified": false,
+        "reason": "name inferred from the selector only"
+      },
+      "args": [
+        {
+          "name": "to",
+          "value": "0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516"
+        },
+        {
+          "name": "amount",
+          "value": "0"
+        }
+      ]
+    }
+  },
+  "warnings": [],
+  "signatures": [
+    {
+      "index": 0,
+      "v": 31,
+      "kind": "eth_sign",
+      "signer": null
+    },
+    {
+      "index": 1,
+      "v": 31,
+      "kind": "eth_sign",
+      "signer": null
+    },
+    {
+      "index": 2,
+      "v": 31,
+      "kind": "eth_sign",
+      "signer": null
+    }
+  ],
+  "exit_code": 1
+}
