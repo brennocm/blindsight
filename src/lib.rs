@@ -12,6 +12,7 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub mod addressbook;
 pub mod decode;
+pub mod detect;
 pub mod input;
 pub mod registry;
 pub mod safe;
