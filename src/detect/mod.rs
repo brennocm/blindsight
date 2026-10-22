@@ -20,6 +20,7 @@ mod owners_001;
 mod refund_001;
 mod semantics_001;
 mod threshold_001;
+mod value_001;
 
 #[cfg(test)]
 mod testutil;
@@ -221,11 +222,12 @@ pub enum Detector {
     Refund001,
     Approval001,
     Approval002,
+    Value001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 12] = [
+    pub const ALL: [Detector; 13] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -238,6 +240,7 @@ impl Detector {
         Detector::Refund001,
         Detector::Approval001,
         Detector::Approval002,
+        Detector::Value001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -275,6 +278,7 @@ impl Detector {
             Detector::Refund001 => include_str!("../../docs/detectors/BS-REFUND-001.md"),
             Detector::Approval001 => include_str!("../../docs/detectors/BS-APPROVAL-001.md"),
             Detector::Approval002 => include_str!("../../docs/detectors/BS-APPROVAL-002.md"),
+            Detector::Value001 => include_str!("../../docs/detectors/BS-VALUE-001.md"),
         }
     }
 
@@ -343,6 +347,11 @@ impl Detector {
                 "Permit2 allowance (experimental)",
                 "high (unlimited), info (bounded)",
             ),
+            Detector::Value001 => (
+                value_001::ID,
+                "Native value transfer",
+                "info; high with delegatecall",
+            ),
         }
     }
 
@@ -361,6 +370,7 @@ impl Detector {
             Detector::Refund001 => refund_001::check(ctx, node),
             Detector::Approval001 => approval_001::check(ctx, node),
             Detector::Approval002 => approval_002::check(ctx, node),
+            Detector::Value001 => value_001::check(ctx, node),
         }
     }
 }
