@@ -10,6 +10,7 @@
 
 mod approval_001;
 mod approval_002;
+mod decode_001;
 mod delegate_001;
 mod delegate_002;
 mod fallback_001;
@@ -227,11 +228,12 @@ pub enum Detector {
     Value001,
     Poison001,
     Target001,
+    Decode001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 15] = [
+    pub const ALL: [Detector; 16] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -247,6 +249,7 @@ impl Detector {
         Detector::Value001,
         Detector::Poison001,
         Detector::Target001,
+        Detector::Decode001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -287,6 +290,7 @@ impl Detector {
             Detector::Value001 => include_str!("../../docs/detectors/BS-VALUE-001.md"),
             Detector::Poison001 => include_str!("../../docs/detectors/BS-POISON-001.md"),
             Detector::Target001 => include_str!("../../docs/detectors/BS-TARGET-001.md"),
+            Detector::Decode001 => include_str!("../../docs/detectors/BS-DECODE-001.md"),
         }
     }
 
@@ -366,6 +370,11 @@ impl Detector {
                 "high",
             ),
             Detector::Target001 => (target_001::ID, "Unknown target", "info"),
+            Detector::Decode001 => (
+                decode_001::ID,
+                "Undecodable or malformed calldata",
+                "medium; high for a malformed batch",
+            ),
         }
     }
 
@@ -387,6 +396,7 @@ impl Detector {
             Detector::Value001 => value_001::check(ctx, node),
             Detector::Poison001 => poison_001::check(ctx, node),
             Detector::Target001 => target_001::check(ctx, node),
+            Detector::Decode001 => decode_001::check(ctx, node),
         }
     }
 }
