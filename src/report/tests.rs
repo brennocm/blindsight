@@ -292,3 +292,34 @@ fn json_user_abi_and_too_deep_nodes() {
     assert!(rendered.contains("\"kind\": \"too_deep\""));
     assert!(text::render(&report).contains("NOT ANALYSED"));
 }
+
+#[test]
+fn token_decimals_only_for_calls_to_listed_tokens() {
+    let usdc: Address = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+        .parse()
+        .unwrap();
+    let data =
+        alloy_sol_types::SolCall::abi_encode(&crate::decode::functions::IERC20::transferCall {
+            to: Address::repeat_byte(1),
+            amount: U256::from(1_500_000u64),
+        });
+    let call = analyse(
+        Command::Decode,
+        input(usdc, Operation::Call, data.clone()),
+        Options::default(),
+    )
+    .unwrap();
+    assert!(text::render(&call).contains("1.5 USDC"));
+    // Delegatecalled, the same calldata moves no tokens.
+    let delegate = analyse(
+        Command::Decode,
+        input(usdc, Operation::DelegateCall, data),
+        Options::default(),
+    )
+    .unwrap();
+    let text = text::render(&delegate);
+    assert!(
+        !text.contains("1.5 USDC") && text.contains("1500000"),
+        "{text}"
+    );
+}

@@ -295,7 +295,10 @@ fn arg_value(
                     | KnownCall::Approve { .. }
                     | KnownCall::IncreaseAllowance { .. }
             ) && (name == "amount" || name == "addedValue");
+            // Only a CALL to a listed token moves tokens; delegatecalled,
+            // the same number means nothing in token units.
             if token_amount
+                && node.operation == Operation::Call
                 && ctx
                     .registry
                     .tokens

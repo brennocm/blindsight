@@ -4,6 +4,7 @@ use alloy_primitives::U256;
 
 use super::{Context, Finding, Severity, finding};
 use crate::decode::{CallNode, KnownCall};
+use crate::safe::Operation;
 
 /// Detector ID.
 pub const ID: &str = "BS-APPROVAL-001";
@@ -47,7 +48,11 @@ pub fn check(ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
                     format!(
                         "{verb} {} to spend {} of {token}.",
                         ctx.describe(*spender),
-                        ctx.token_amount(node.to, *amount)
+                        if node.operation == Operation::Call {
+                            ctx.token_amount(node.to, *amount)
+                        } else {
+                            format!("{amount} (delegatecalled: not a token amount)")
+                        }
                     ),
                 )
             }
@@ -147,5 +152,22 @@ mod tests {
             with_id(&findings(&operator(false)), "BS-APPROVAL-001"),
             [(Severity::Info, "root".into())]
         );
+    }
+
+    #[test]
+    fn delegatecalled_approvals_are_not_token_amounts() {
+        let t = tx(
+            addr(USDC),
+            Operation::DelegateCall,
+            IERC20::approveCall {
+                spender: Address::repeat_byte(1),
+                amount: U256::from(1_500_000u64),
+            }
+            .abi_encode(),
+        );
+        let f = findings(&t);
+        let detail = &f.iter().find(|f| f.id == "BS-APPROVAL-001").unwrap().detail;
+        assert!(!detail.contains("USDC ("), "{detail}");
+        assert!(detail.contains("not a token amount"), "{detail}");
     }
 }
