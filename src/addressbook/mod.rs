@@ -104,6 +104,7 @@ impl AddressBook {
             return Err(AddressBookError::TooManyEntries);
         }
         let mut book = AddressBook::default();
+        let mut names = std::collections::BTreeSet::new();
         let mut warnings = Vec::new();
         for (name, value) in object {
             let entry_error = |reason: &str| AddressBookError::Entry {
@@ -133,6 +134,13 @@ impl AddressBook {
                 },
                 other => other,
             }));
+            // Names that differ only by surrounding spaces or letter case
+            // would be the same label for two addresses.
+            if !names.insert(trimmed.to_lowercase()) {
+                return Err(entry_error(
+                    "another entry has the same name (ignoring case and surrounding spaces)",
+                ));
+            }
             let entry = Entry {
                 name: trimmed.to_string(),
                 address,
@@ -219,6 +227,7 @@ mod tests {
             r#"{"A": "0x0000000000000000000000000000000000000001", "A": "0x0000000000000000000000000000000000000002"}"#,
             r#"{"A": "0x0000000000000000000000000000000000000001", "B": "0x0000000000000000000000000000000000000001"}"#,
             r#"{"": "0x0000000000000000000000000000000000000001"}"#,
+            r#"{"Ops": "0x0000000000000000000000000000000000000001", " ops ": "0x0000000000000000000000000000000000000002"}"#,
             r#"{"A": "0x01"}"#,
             r#"{"A": 1}"#,
             r#"["0x0000000000000000000000000000000000000001"]"#,
