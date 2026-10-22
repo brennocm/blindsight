@@ -4,7 +4,7 @@ All notable changes to this project are documented in this file. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0] - 2026-10-22
 
 ### Added
 
@@ -53,3 +53,5 @@ Fixed during the final security review, before any release:
 - Token amounts are no longer formatted with token decimals when the token
   function is delegatecalled.
 - Only one input may be read from standard input.
+
+[0.1.0]: https://github.com/brennocm/blindsight/releases/tag/v0.1.0
