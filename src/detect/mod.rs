@@ -20,6 +20,7 @@ mod owners_001;
 mod poison_001;
 mod refund_001;
 mod semantics_001;
+mod target_001;
 mod threshold_001;
 mod value_001;
 
@@ -225,11 +226,12 @@ pub enum Detector {
     Approval002,
     Value001,
     Poison001,
+    Target001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 14] = [
+    pub const ALL: [Detector; 15] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -244,6 +246,7 @@ impl Detector {
         Detector::Approval002,
         Detector::Value001,
         Detector::Poison001,
+        Detector::Target001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -283,6 +286,7 @@ impl Detector {
             Detector::Approval002 => include_str!("../../docs/detectors/BS-APPROVAL-002.md"),
             Detector::Value001 => include_str!("../../docs/detectors/BS-VALUE-001.md"),
             Detector::Poison001 => include_str!("../../docs/detectors/BS-POISON-001.md"),
+            Detector::Target001 => include_str!("../../docs/detectors/BS-TARGET-001.md"),
         }
     }
 
@@ -361,6 +365,7 @@ impl Detector {
                 "Address looks like an address-book entry",
                 "high",
             ),
+            Detector::Target001 => (target_001::ID, "Unknown target", "info"),
         }
     }
 
@@ -381,6 +386,7 @@ impl Detector {
             Detector::Approval002 => approval_002::check(ctx, node),
             Detector::Value001 => value_001::check(ctx, node),
             Detector::Poison001 => poison_001::check(ctx, node),
+            Detector::Target001 => target_001::check(ctx, node),
         }
     }
 }
