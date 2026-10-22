@@ -38,7 +38,7 @@ impl<'de> Deserialize<'de> for UniqueKeys {
             type Value = UniqueKeys;
 
             fn expecting(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                f.write_str("a JSON object describing one Safe transaction")
+                f.write_str("a JSON object")
             }
 
             fn visit_map<A: MapAccess<'de>>(self, mut map: A) -> Result<UniqueKeys, A::Error> {
@@ -58,6 +58,17 @@ impl<'de> Deserialize<'de> for UniqueKeys {
 
         deserializer.deserialize_map(ObjectVisitor)
     }
+}
+
+/// Parses a JSON object, rejecting repeated top-level keys.
+///
+/// # Errors
+///
+/// The parser's message for malformed JSON, a non-object, or a repeated key.
+pub(crate) fn parse_object_unique_keys(text: &str) -> Result<BTreeMap<String, Value>, String> {
+    serde_json::from_str::<UniqueKeys>(text)
+        .map(|UniqueKeys(object)| object)
+        .map_err(|e| e.to_string())
 }
 
 /// The JSON keys blindsight reads, with the field each one sets.
@@ -112,8 +123,7 @@ pub fn parse_json(text: &str) -> Result<PartialTx, InputError> {
             limit: MAX_JSON_BYTES,
         });
     }
-    let UniqueKeys(object) =
-        serde_json::from_str(text).map_err(|e| InputError::Json(e.to_string()))?;
+    let object = parse_object_unique_keys(text).map_err(InputError::Json)?;
     if object.contains_key("results") && !object.contains_key("to") {
         return Err(InputError::Json(
             "this looks like a list response; pass a single transaction object".to_string(),

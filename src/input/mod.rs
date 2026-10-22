@@ -194,6 +194,15 @@ pub enum InputWarning {
     },
     /// The chain id is not known but `--allow-unknown-chain` was given.
     UnknownChainAllowed(u64),
+    /// An address-book entry whose mixed-case checksum is wrong.
+    BookChecksum {
+        /// Sanitised name of the entry.
+        name: String,
+        /// The address as given (valid hex, safe to print).
+        given: String,
+        /// The correctly checksummed address.
+        expected: String,
+    },
 }
 
 impl fmt::Display for InputWarning {
@@ -206,6 +215,14 @@ impl fmt::Display for InputWarning {
             } => write!(
                 f,
                 "{field}: {given} has an invalid EIP-55 checksum; the correctly checksummed form is {expected}. A corrupted checksum can mean the address was altered: check where it came from"
+            ),
+            InputWarning::BookChecksum {
+                name,
+                given,
+                expected,
+            } => write!(
+                f,
+                "address book entry \"{name}\": {given} has an invalid EIP-55 checksum; the correctly checksummed form is {expected}. Check the entry against its source"
             ),
             InputWarning::UnknownChainAllowed(id) => write!(
                 f,
