@@ -10,5 +10,6 @@
 /// Version of this crate, as declared in `Cargo.toml`.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+pub mod registry;
 pub mod safe;
 pub mod sanitize;

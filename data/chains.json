@@ -1,0 +1,3251 @@
+{
+ "source": "https://github.com/ethereum-lists/chains",
+ "commit": "1841d7e5b37b98df1501503e22de0c66516856cc",
+ "note": "Chains with at least one official Safe deployment in safe_deployments.json.",
+ "missing_from_source": [
+  677,
+  756,
+  757,
+  870,
+  2787,
+  2910,
+  3946,
+  4441,
+  4509,
+  8765,
+  11417,
+  12357,
+  13441,
+  20994,
+  28802,
+  28979,
+  32380,
+  52924,
+  83291,
+  278701,
+  613419,
+  657468,
+  688688,
+  688689,
+  843843,
+  936485,
+  1000101,
+  5064014,
+  13374202,
+  531050204,
+  3735928814,
+  30143370385
+ ],
+ "chains": [
+  {
+   "chain_id": 1,
+   "name": "Ethereum Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3,
+   "name": "Ropsten",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4,
+   "name": "Rinkeby",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5,
+   "name": "Goerli",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10,
+   "name": "OP Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11,
+   "name": "Metadium Mainnet",
+   "native_symbol": "META",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 12,
+   "name": "Metadium Testnet",
+   "native_symbol": "KAL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 14,
+   "name": "Flare Mainnet",
+   "native_symbol": "FLR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 16,
+   "name": "Songbird Testnet Coston",
+   "native_symbol": "CFLR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 18,
+   "name": "ThunderCore Testnet",
+   "native_symbol": "TST",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 19,
+   "name": "Songbird Canary-Network",
+   "native_symbol": "SGB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 25,
+   "name": "Cronos Mainnet",
+   "native_symbol": "CRO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 28,
+   "name": "Boba Network Rinkeby Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 30,
+   "name": "Rootstock Mainnet",
+   "native_symbol": "RBTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 31,
+   "name": "Rootstock Testnet",
+   "native_symbol": "tRBTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 39,
+   "name": "U2U Solaris Mainnet",
+   "native_symbol": "U2U",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 40,
+   "name": "Telos EVM Mainnet",
+   "native_symbol": "TLOS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 41,
+   "name": "Telos EVM Testnet",
+   "native_symbol": "TLOS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42,
+   "name": "LUKSO Mainnet",
+   "native_symbol": "LYX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43,
+   "name": "Darwinia Pangolin Testnet",
+   "native_symbol": "PRING",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 44,
+   "name": "Crab Network",
+   "native_symbol": "CRAB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 46,
+   "name": "Darwinia Network",
+   "native_symbol": "RING",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 50,
+   "name": "XDC Network",
+   "native_symbol": "XDC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 51,
+   "name": "XDC Apothem Network",
+   "native_symbol": "TXDC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 56,
+   "name": "BNB Smart Chain Mainnet",
+   "native_symbol": "BNB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 57,
+   "name": "Syscoin Mainnet",
+   "native_symbol": "SYS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 61,
+   "name": "Ethereum Classic",
+   "native_symbol": "ETC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 63,
+   "name": "Mordor Testnet",
+   "native_symbol": "METC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 69,
+   "name": "Optimism Kovan",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 71,
+   "name": "Conflux eSpace (Testnet)",
+   "native_symbol": "CFX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 81,
+   "name": "Japan Open Chain Mainnet",
+   "native_symbol": "JOC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 82,
+   "name": "Meter Mainnet",
+   "native_symbol": "MTR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 83,
+   "name": "Meter Testnet",
+   "native_symbol": "MTR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88,
+   "name": "Viction",
+   "native_symbol": "VIC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 96,
+   "name": "KUB Mainnet",
+   "native_symbol": "KUB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 97,
+   "name": "BNB Smart Chain Testnet",
+   "native_symbol": "tBNB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98,
+   "name": "Six Protocol",
+   "native_symbol": "SIX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 100,
+   "name": "Gnosis",
+   "native_symbol": "XDAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 106,
+   "name": "Velas EVM Mainnet",
+   "native_symbol": "VLX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 108,
+   "name": "ThunderCore Mainnet",
+   "native_symbol": "TT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 109,
+   "name": "Shibarium",
+   "native_symbol": "BONE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 111,
+   "name": "EtherLite Chain",
+   "native_symbol": "ETL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 114,
+   "name": "Flare Testnet Coston2",
+   "native_symbol": "C2FLR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 122,
+   "name": "Fuse Mainnet",
+   "native_symbol": "FUSE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 123,
+   "name": "Fuse Sparknet",
+   "native_symbol": "SPARK",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 130,
+   "name": "Unichain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 133,
+   "name": "HSKChain Testnet",
+   "native_symbol": "HSK",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 137,
+   "name": "Polygon Mainnet",
+   "native_symbol": "POL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 143,
+   "name": "Monad",
+   "native_symbol": "MON",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 146,
+   "name": "Sonic Mainnet",
+   "native_symbol": "S",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 148,
+   "name": "ShimmerEVM",
+   "native_symbol": "SMR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 150,
+   "name": "Six Protocol Testnet",
+   "native_symbol": "tSIX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 151,
+   "name": "Redbelly Network Mainnet",
+   "native_symbol": "RBNT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 153,
+   "name": "Redbelly Network Testnet",
+   "native_symbol": "RBNT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 155,
+   "name": "Tenet Testnet",
+   "native_symbol": "TENET",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 169,
+   "name": "Manta Pacific Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 173,
+   "name": "ENI Mainnet",
+   "native_symbol": "EGAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 177,
+   "name": "HSKChain",
+   "native_symbol": "HSK",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 179,
+   "name": "Abey Mainnet",
+   "native_symbol": "ABEY",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 181,
+   "name": "Waterfall Network",
+   "native_symbol": "WATER",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 185,
+   "name": "Mint Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 195,
+   "name": "X Layer Testnet(Deprecated)",
+   "native_symbol": "OKBDep",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 196,
+   "name": "X Layer Mainnet",
+   "native_symbol": "OKB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 204,
+   "name": "opBNB Mainnet",
+   "native_symbol": "BNB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 228,
+   "name": "Mind Network Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 232,
+   "name": "Lens",
+   "native_symbol": "GHO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 239,
+   "name": "TAC Mainnet",
+   "native_symbol": "TAC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 240,
+   "name": "Cronos zkEVM Testnet",
+   "native_symbol": "zkTCRO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 246,
+   "name": "Energy Web Chain",
+   "native_symbol": "EWT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 250,
+   "name": "Fantom Opera",
+   "native_symbol": "FTM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 252,
+   "name": "Fraxtal",
+   "native_symbol": "FRAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 255,
+   "name": "Kroma",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 274,
+   "name": "LaChain",
+   "native_symbol": "LAC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 280,
+   "name": "zkSync Era Goerli Testnet (deprecated)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 282,
+   "name": "Deprecated Cronos zkEVM Testnet",
+   "native_symbol": "zkTCRO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 288,
+   "name": "Boba Network",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 291,
+   "name": "Orderly Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 295,
+   "name": "Hedera Mainnet",
+   "native_symbol": "HBAR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 296,
+   "name": "Hedera Testnet",
+   "native_symbol": "HBAR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 300,
+   "name": "zkSync Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 314,
+   "name": "Filecoin - Mainnet",
+   "native_symbol": "FIL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 321,
+   "name": "KCC Mainnet",
+   "native_symbol": "KCS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 322,
+   "name": "KCC Testnet",
+   "native_symbol": "tKCS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 324,
+   "name": "zkSync Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 336,
+   "name": "Shiden",
+   "native_symbol": "SDN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 338,
+   "name": "Cronos Testnet",
+   "native_symbol": "TCRO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 360,
+   "name": "Shape",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 369,
+   "name": "PulseChain",
+   "native_symbol": "PLS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 388,
+   "name": "Cronos zkEVM Mainnet",
+   "native_symbol": "zkCRO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 418,
+   "name": "LaTestnet",
+   "native_symbol": "TLA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 420,
+   "name": "Optimism Goerli Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 424,
+   "name": "PGN (Public Goods Network)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 466,
+   "name": "AppChain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 478,
+   "name": "Form Network",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 480,
+   "name": "World Chain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 530,
+   "name": "Pundi AIFX Omnilayer",
+   "native_symbol": "PUNDAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 545,
+   "name": "Flow EVM Testnet",
+   "native_symbol": "FLOW",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 570,
+   "name": "Rollux Mainnet",
+   "native_symbol": "SYS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 588,
+   "name": "Metis Stardust Testnet",
+   "native_symbol": "METIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 592,
+   "name": "Astar",
+   "native_symbol": "ASTR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 595,
+   "name": "Acala Mandala Testnet TC9",
+   "native_symbol": "mACA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 599,
+   "name": "Metis Goerli Testnet",
+   "native_symbol": "METIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 648,
+   "name": "Endurance Smart Chain Mainnet",
+   "native_symbol": "ACE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 686,
+   "name": "Karura Network",
+   "native_symbol": "KAR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 690,
+   "name": "Redstone",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 698,
+   "name": "Matchain",
+   "native_symbol": "BNB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 714,
+   "name": "Eden",
+   "native_symbol": "TIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 747,
+   "name": "Flow EVM Mainnet",
+   "native_symbol": "FLOW",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 787,
+   "name": "Acala Network",
+   "native_symbol": "ACA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 841,
+   "name": "Taraxa Mainnet",
+   "native_symbol": "TARA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 842,
+   "name": "Taraxa Testnet",
+   "native_symbol": "TARA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 919,
+   "name": "Mode Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 938,
+   "name": "Haust Mainnet",
+   "native_symbol": "HAUST",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 943,
+   "name": "PulseChain Testnet v4",
+   "native_symbol": "tPLS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 964,
+   "name": "Subtensor EVM",
+   "native_symbol": "TAO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 970,
+   "name": "Oort Mainnet",
+   "native_symbol": "OORT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 988,
+   "name": "Stable Mainnet",
+   "native_symbol": "USDT0",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 995,
+   "name": "5ireChain Mainnet",
+   "native_symbol": "5ire",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 999,
+   "name": "Wanchain Testnet",
+   "native_symbol": "WAN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1001,
+   "name": "Kaia Kairos Testnet",
+   "native_symbol": "KAIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1008,
+   "name": "Eurus Mainnet",
+   "native_symbol": "EUN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1030,
+   "name": "Conflux eSpace",
+   "native_symbol": "CFX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1088,
+   "name": "Metis Andromeda Mainnet",
+   "native_symbol": "METIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1101,
+   "name": "Polygon zkEVM",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1111,
+   "name": "WEMIX3.0 Mainnet",
+   "native_symbol": "WEMIX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1112,
+   "name": "WEMIX3.0 Testnet",
+   "native_symbol": "tWEMIX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1114,
+   "name": "Core Blockchain Testnet2",
+   "native_symbol": "tCORE2",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1115,
+   "name": "Core Blockchain Testnet",
+   "native_symbol": "tCORE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1116,
+   "name": "Core Blockchain Mainnet",
+   "native_symbol": "CORE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1125,
+   "name": "Taker Chain Mainnet",
+   "native_symbol": "TAKER",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1135,
+   "name": "Lisk",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1230,
+   "name": "Ultron Testnet",
+   "native_symbol": "ULX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1231,
+   "name": "Ultron Mainnet",
+   "native_symbol": "ULX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1284,
+   "name": "Moonbeam",
+   "native_symbol": "GLMR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1285,
+   "name": "Moonriver",
+   "native_symbol": "MOVR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1287,
+   "name": "Moonbase Alpha",
+   "native_symbol": "DEV",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1294,
+   "name": "Bobabeam",
+   "native_symbol": "BOBA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1301,
+   "name": "Unichain Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1315,
+   "name": "Data Network Aeneid Testnet",
+   "native_symbol": "DATA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1328,
+   "name": "Sei Testnet",
+   "native_symbol": "SEI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1329,
+   "name": "Sei Network",
+   "native_symbol": "SEI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1337,
+   "name": "Geth Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1424,
+   "name": "Perennial",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1439,
+   "name": "Injective Testnet",
+   "native_symbol": "INJ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1442,
+   "name": "Polygon zkEVM Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1480,
+   "name": "Vana",
+   "native_symbol": "VANA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1513,
+   "name": "Story Testnet",
+   "native_symbol": "IP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1514,
+   "name": "Data Network",
+   "native_symbol": "DATA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1516,
+   "name": "Story Odyssey Testnet",
+   "native_symbol": "IP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1559,
+   "name": "Tenet",
+   "native_symbol": "TENET",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1625,
+   "name": "Gravity Alpha Mainnet",
+   "native_symbol": "G",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1663,
+   "name": "Horizen Gobi Testnet",
+   "native_symbol": "tZEN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1672,
+   "name": "Pharos Mainnet",
+   "native_symbol": "PROS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1729,
+   "name": "Reya Network",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1740,
+   "name": "Metal L2 Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1750,
+   "name": "Metal L2",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1776,
+   "name": "Injective",
+   "native_symbol": "INJ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1807,
+   "name": "Rabbit Analog Testnet Chain",
+   "native_symbol": "rAna",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1811,
+   "name": "Lif3 Chain Testnet",
+   "native_symbol": "LIF3",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1868,
+   "name": "Soneium",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1874,
+   "name": "Whitechain Sepolia",
+   "native_symbol": "WBT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1890,
+   "name": "Lightlink Phoenix Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1891,
+   "name": "Lightlink Pegasus Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1923,
+   "name": "Swellchain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1924,
+   "name": "Swellchain Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1946,
+   "name": "Soneium Testnet Minato",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1984,
+   "name": "Eurus Testnet",
+   "native_symbol": "EUN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1995,
+   "name": "edeXa Testnet",
+   "native_symbol": "tEDX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1998,
+   "name": "Kyoto Testnet",
+   "native_symbol": "KYOTO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2000,
+   "name": "Dogechain Mainnet",
+   "native_symbol": "DOGE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2001,
+   "name": "Milkomeda C1 Mainnet",
+   "native_symbol": "mADA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2002,
+   "name": "Milkomeda A1 Mainnet",
+   "native_symbol": "mALGO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2008,
+   "name": "CloudWalk Testnet",
+   "native_symbol": "CWN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2019,
+   "name": "PublicMint Testnet",
+   "native_symbol": "USD",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2020,
+   "name": "Ronin Mainnet",
+   "native_symbol": "RON",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2021,
+   "name": "Edgeware EdgeEVM Mainnet",
+   "native_symbol": "EDG",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2039,
+   "name": "Aleph Zero",
+   "native_symbol": "TZERO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2187,
+   "name": "Game7",
+   "native_symbol": "G7",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2192,
+   "name": "SnaxChain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2201,
+   "name": "Stable Testnet",
+   "native_symbol": "USDT0",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2221,
+   "name": "Kava Testnet",
+   "native_symbol": "TKAVA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2222,
+   "name": "Kava",
+   "native_symbol": "KAVA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2331,
+   "name": "RSS3 VSL Sepolia Testnet",
+   "native_symbol": "RSS3",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2345,
+   "name": "GOAT Network",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2358,
+   "name": "Kroma Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2390,
+   "name": "TAC Turin",
+   "native_symbol": "TAC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2391,
+   "name": "TAC Saint Petersburg",
+   "native_symbol": "TAC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2424,
+   "name": "inEVM Testnet",
+   "native_symbol": "INJ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2442,
+   "name": "Polygon zkEVM Cardona Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2522,
+   "name": "Fraxtal Testnet",
+   "native_symbol": "FRAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2741,
+   "name": "Abstract",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2810,
+   "name": "Morph Holesky",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2818,
+   "name": "Morph",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3068,
+   "name": "Bifrost Mainnet",
+   "native_symbol": "BFC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3111,
+   "name": "Alpha Chain Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3338,
+   "name": "peaq",
+   "native_symbol": "PEAQ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3501,
+   "name": "JFIN Chain",
+   "native_symbol": "JFIN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3636,
+   "name": "Botanix Testnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3637,
+   "name": "Botanix Mainnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3737,
+   "name": "Crossbell",
+   "native_symbol": "CSB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3776,
+   "name": "Astar zkEVM",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4002,
+   "name": "Fantom Testnet",
+   "native_symbol": "FTM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4061,
+   "name": "Nahmii 3 Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4062,
+   "name": "Nahmii 3 Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4078,
+   "name": "Muster Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4153,
+   "name": "RISE",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4157,
+   "name": "CrossFi Testnet",
+   "native_symbol": "XFI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4158,
+   "name": "CrossFi Mainnet",
+   "native_symbol": "XFI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4162,
+   "name": "SX Rollup",
+   "native_symbol": "SX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4202,
+   "name": "Lisk Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4217,
+   "name": "Tempo Mainnet Presto",
+   "native_symbol": "USD",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4326,
+   "name": "MegaETH Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4337,
+   "name": "Beam",
+   "native_symbol": "BEAM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4460,
+   "name": "Orderly Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4488,
+   "name": "Hydra Chain",
+   "native_symbol": "HYDRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4653,
+   "name": "Gold Chain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4661,
+   "name": "AppChain Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4663,
+   "name": "Robinhood Chain",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4689,
+   "name": "IoTeX Network Mainnet",
+   "native_symbol": "IOTX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4801,
+   "name": "World Chain Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4918,
+   "name": "Venidium Testnet",
+   "native_symbol": "XVM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4919,
+   "name": "Venidium Mainnet",
+   "native_symbol": "XVM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5000,
+   "name": "Mantle",
+   "native_symbol": "MNT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5001,
+   "name": "Mantle Testnet",
+   "native_symbol": "MNT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5003,
+   "name": "Mantle Sepolia Testnet",
+   "native_symbol": "MNT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5031,
+   "name": "Somnia Mainnet",
+   "native_symbol": "SOMI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5042,
+   "name": "Arc",
+   "native_symbol": "USDC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5115,
+   "name": "Citrea Testnet",
+   "native_symbol": "cBTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5124,
+   "name": "Seismic Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5165,
+   "name": "Bahamut",
+   "native_symbol": "FTN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5330,
+   "name": "Superseed",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5424,
+   "name": "edeXa Mainnet",
+   "native_symbol": "EDX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5464,
+   "name": "SagaEVM",
+   "native_symbol": "GAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5611,
+   "name": "opBNB Testnet",
+   "native_symbol": "tBNB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5700,
+   "name": "Syscoin Tanenbaum Testnet",
+   "native_symbol": "tSYS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5851,
+   "name": "Ontology Testnet",
+   "native_symbol": "ONG",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5887,
+   "name": "MANTRACHAIN Testnet",
+   "native_symbol": "MANTRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5888,
+   "name": "MANTRA Chain",
+   "native_symbol": "MANTRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6001,
+   "name": "BounceBit Mainnet",
+   "native_symbol": "BB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6102,
+   "name": "Cascadia Testnet",
+   "native_symbol": "tCC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6321,
+   "name": "Aura Euphoria Testnet",
+   "native_symbol": "eAura",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6322,
+   "name": "Aura Mainnet",
+   "native_symbol": "AURA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6342,
+   "name": "MegaETH Testnet (Deprecated)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6398,
+   "name": "Connext Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6497,
+   "name": "MIZUHIKI Testnet Awaji",
+   "native_symbol": "MIZU",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6498,
+   "name": "MIZUHIKI Mainnet",
+   "native_symbol": "MIZU",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6688,
+   "name": "IRIShub",
+   "native_symbol": "ERIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6880,
+   "name": "MTT Network",
+   "native_symbol": "MTT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6900,
+   "name": "Nibiru cataclysm-1",
+   "native_symbol": "NIBI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6911,
+   "name": "Nibiru testnet-2",
+   "native_symbol": "NIBI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6942,
+   "name": "Laika Mainnet",
+   "native_symbol": "DOGE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7000,
+   "name": "ZetaChain Mainnet",
+   "native_symbol": "ZETA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7001,
+   "name": "ZetaChain Testnet",
+   "native_symbol": "ZETA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7070,
+   "name": "Planq Mainnet",
+   "native_symbol": "PLQ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7171,
+   "name": "Bitrock Mainnet",
+   "native_symbol": "BROCK",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7200,
+   "name": "exSat Mainnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7208,
+   "name": "Nexera Mainnet",
+   "native_symbol": "NXRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7332,
+   "name": "Horizen EON Mainnet",
+   "native_symbol": "ZEN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7336,
+   "name": "Pruv Testnet",
+   "native_symbol": "PRUV",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7337,
+   "name": "Pruv Mainnet",
+   "native_symbol": "PRUV",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7341,
+   "name": "Shyft Mainnet",
+   "native_symbol": "SHYFT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7560,
+   "name": "Cyber Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7700,
+   "name": "Canto",
+   "native_symbol": "CANTO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7771,
+   "name": "Bitrock Testnet",
+   "native_symbol": "BROCK",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7897,
+   "name": "arena-z",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7979,
+   "name": "DOS Chain",
+   "native_symbol": "DOS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8008,
+   "name": "Polynomial",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8150,
+   "name": "Alpen Testnet",
+   "native_symbol": "sBTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8192,
+   "name": "Torus Mainnet",
+   "native_symbol": "TQF",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8194,
+   "name": "Torus Testnet",
+   "native_symbol": "TTQF",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8217,
+   "name": "Kaia Mainnet",
+   "native_symbol": "KAIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8329,
+   "name": "Lorenzo",
+   "native_symbol": "stBTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8333,
+   "name": "B3",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8408,
+   "name": "ZenChain Testnet",
+   "native_symbol": "ZTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8453,
+   "name": "Base",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8700,
+   "name": "Autonomys Chronos Testnet",
+   "native_symbol": "AI3",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8801,
+   "name": "Okto Testnet",
+   "native_symbol": "OKTO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8822,
+   "name": "IOTA EVM",
+   "native_symbol": "IOTA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 8844,
+   "name": "Hydra Chain Testnet",
+   "native_symbol": "tHYDRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9000,
+   "name": "Evmos Testnet",
+   "native_symbol": "tEVMOS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9001,
+   "name": "Evmos",
+   "native_symbol": "EVMOS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9069,
+   "name": "Apex Fusion - Nexus Mainnet",
+   "native_symbol": "AP3X",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9070,
+   "name": "Apex Fusion - Nexus testnet",
+   "native_symbol": "tAP3X",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9302,
+   "name": "Galactica-Reticulum",
+   "native_symbol": "GNET",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9369,
+   "name": "Z Chain",
+   "native_symbol": "Z",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9700,
+   "name": "Oort MainnetDev",
+   "native_symbol": "OORT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9728,
+   "name": "Boba BNB Testnet",
+   "native_symbol": "BOBA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9745,
+   "name": "Plasma Mainnet",
+   "native_symbol": "XPL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9746,
+   "name": "Plasma Testnet",
+   "native_symbol": "XPL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10000,
+   "name": "Smart Bitcoin Cash",
+   "native_symbol": "BCH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10001,
+   "name": "Smart Bitcoin Cash Testnet",
+   "native_symbol": "BCHT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10081,
+   "name": "Japan Open Chain Testnet",
+   "native_symbol": "JOCT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10143,
+   "name": "Monad Testnet",
+   "native_symbol": "MON",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10200,
+   "name": "Gnosis Chiado Testnet",
+   "native_symbol": "XDAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10242,
+   "name": "Arthera Mainnet",
+   "native_symbol": "AA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10243,
+   "name": "Arthera Testnet",
+   "native_symbol": "AA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10849,
+   "name": "Lamina1",
+   "native_symbol": "L1",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 10888,
+   "name": "GameSwift Chain Testnet",
+   "native_symbol": "tGS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11011,
+   "name": "Shape Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11111,
+   "name": "WAGMI",
+   "native_symbol": "WGM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11124,
+   "name": "Abstract Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11235,
+   "name": "Haqq Network",
+   "native_symbol": "ISLM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11437,
+   "name": "Shyft Testnet",
+   "native_symbol": "SHYFTT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11501,
+   "name": "GEB Mainnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11503,
+   "name": "BEVM Testnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11820,
+   "name": "Artela Mainnet",
+   "native_symbol": "ART",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11891,
+   "name": "Polygon Supernet Arianee",
+   "native_symbol": "ARIA20",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 12324,
+   "name": "L3X Protocol",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 12325,
+   "name": "L3X Protocol Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 12553,
+   "name": "RSS3 VSL Mainnet",
+   "native_symbol": "RSS3",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13337,
+   "name": "Beam Testnet",
+   "native_symbol": "BEAM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13371,
+   "name": "Immutable zkEVM",
+   "native_symbol": "IMX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13473,
+   "name": "Immutable zkEVM Testnet",
+   "native_symbol": "tIMX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13505,
+   "name": "Gravity Alpha Testnet Sepolia",
+   "native_symbol": "G",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13746,
+   "name": "Game7 Testnet",
+   "native_symbol": "TG7T",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 14601,
+   "name": "Sonic Testnet",
+   "native_symbol": "S",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 14800,
+   "name": "Vana Moksha Testnet",
+   "native_symbol": "VANA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 16661,
+   "name": "0G Mainnet",
+   "native_symbol": "0G",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 17000,
+   "name": "Holesky",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 17069,
+   "name": "Garnet Holesky",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 17172,
+   "name": "Eclipse Subnet",
+   "native_symbol": "ECLP",
+   "native_decimals": 16
+  },
+  {
+   "chain_id": 18231,
+   "name": "unreal-old",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 18233,
+   "name": "unreal",
+   "native_symbol": "reETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 18880,
+   "name": "EXPchain Testnet",
+   "native_symbol": "tZKJ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 22776,
+   "name": "MAP Protocol",
+   "native_symbol": "MAPO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 23294,
+   "name": "Oasis Sapphire",
+   "native_symbol": "ROSE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 23295,
+   "name": "Oasis Sapphire Testnet",
+   "native_symbol": "TEST",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 24101,
+   "name": "Incentiv Mainnet",
+   "native_symbol": "CENT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 25327,
+   "name": "Everclear Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 25363,
+   "name": "Fluent",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 26888,
+   "name": "AB Core Testnet",
+   "native_symbol": "AB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 28882,
+   "name": "Boba Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 30303,
+   "name": "Ethiq",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 31611,
+   "name": "Mezo Testnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 31612,
+   "name": "Mezo",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 32323,
+   "name": "BasedAI",
+   "native_symbol": "BASED",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 32769,
+   "name": "Zilliqa 2",
+   "native_symbol": "ZIL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 32770,
+   "name": "Zilliqa 2 EVM proto-mainnet",
+   "native_symbol": "ZIL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 33101,
+   "name": "Zilliqa 2 Testnet",
+   "native_symbol": "ZIL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 33111,
+   "name": "Curtis",
+   "native_symbol": "APE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 33139,
+   "name": "ApeChain",
+   "native_symbol": "APE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 33401,
+   "name": "SlingShot",
+   "native_symbol": "SLING",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 34443,
+   "name": "Mode",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 35441,
+   "name": "Q Mainnet",
+   "native_symbol": "QGOV",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 35443,
+   "name": "Q Testnet",
+   "native_symbol": "Q",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 36888,
+   "name": "AB Core Mainnet",
+   "native_symbol": "AB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 36900,
+   "name": "ADI Chain",
+   "native_symbol": "ADI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 37111,
+   "name": "Lens Testnet",
+   "native_symbol": "GRASS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 38833,
+   "name": "Igra Network",
+   "native_symbol": "iKAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 41455,
+   "name": "Aleph Zero EVM",
+   "native_symbol": "AZERO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 41923,
+   "name": "EDU Chain",
+   "native_symbol": "EDU",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42161,
+   "name": "Arbitrum One",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42170,
+   "name": "Arbitrum Nova",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42220,
+   "name": "Celo Mainnet",
+   "native_symbol": "CELO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42421,
+   "name": "Asset Chain Testnet",
+   "native_symbol": "RWA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42431,
+   "name": "Tempo Testnet Moderato",
+   "native_symbol": "USD",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 42793,
+   "name": "Etherlink Mainnet",
+   "native_symbol": "XTZ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43111,
+   "name": "Hemi",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43113,
+   "name": "Avalanche Fuji Testnet",
+   "native_symbol": "AVAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43114,
+   "name": "Avalanche C-Chain",
+   "native_symbol": "AVAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43288,
+   "name": "Boba Avax",
+   "native_symbol": "BOBA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 43419,
+   "name": "GUNZ",
+   "native_symbol": "GUN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 44787,
+   "name": "Celo Alfajores Testnet",
+   "native_symbol": "CELO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 45000,
+   "name": "Autobahn Network",
+   "native_symbol": "TXL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 46630,
+   "name": "Robinhood Chain Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 47763,
+   "name": "Neo X Mainnet",
+   "native_symbol": "GAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 47805,
+   "name": "REI Network",
+   "native_symbol": "REI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 48898,
+   "name": "Zircuit Garfield Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 48899,
+   "name": "Zircuit Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 48900,
+   "name": "Zircuit Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 49088,
+   "name": "Bifrost Testnet",
+   "native_symbol": "BFC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 49321,
+   "name": "GUNZ Testnet",
+   "native_symbol": "GUN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 50104,
+   "name": "Sophon",
+   "native_symbol": "SOPH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 50312,
+   "name": "Somnia Testnet",
+   "native_symbol": "STT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 53302,
+   "name": "Superseed Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 53456,
+   "name": "BirdLayer",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 53457,
+   "name": "DODOchain testnet",
+   "native_symbol": "DODO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 54211,
+   "name": "Haqq Chain Testnet",
+   "native_symbol": "ISLMT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 55244,
+   "name": "Superposition",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 56288,
+   "name": "Boba BNB Mainnet",
+   "native_symbol": "BOBA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 57000,
+   "name": "Rollux Testnet",
+   "native_symbol": "TSYS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 57054,
+   "name": "Sonic Blaze Testnet",
+   "native_symbol": "S",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 57073,
+   "name": "Ink",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 58008,
+   "name": "Sepolia PGN (Public Goods Network)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 59140,
+   "name": "Linea Goerli",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 59141,
+   "name": "Linea Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 59144,
+   "name": "Linea",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 59902,
+   "name": "Metis Sepolia Testnet",
+   "native_symbol": "tMETIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 60808,
+   "name": "BOB",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 61166,
+   "name": "Treasure",
+   "native_symbol": "MAGIC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 66665,
+   "name": "Creator Chain Testnet",
+   "native_symbol": "CETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 71401,
+   "name": "Godwoken Testnet v1",
+   "native_symbol": "pCKB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 71402,
+   "name": "Godwoken Mainnet",
+   "native_symbol": "pCKB",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 72080,
+   "name": "Nexera Testnet",
+   "native_symbol": "tNXRA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 73799,
+   "name": "Energy Web Volta Testnet",
+   "native_symbol": "VT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80001,
+   "name": "Mumbai",
+   "native_symbol": "MATIC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80002,
+   "name": "Amoy",
+   "native_symbol": "POL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80069,
+   "name": "Berachain Bepolia",
+   "native_symbol": "BERA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80084,
+   "name": "Berachain bArtio",
+   "native_symbol": "BERA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80085,
+   "name": "Berachain Artio",
+   "native_symbol": "BERA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 80094,
+   "name": "Berachain",
+   "native_symbol": "BERA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 81224,
+   "name": "Codex",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 81457,
+   "name": "Blast",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 84531,
+   "name": "Base Goerli Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 84532,
+   "name": "Base Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88811,
+   "name": "Unit Zero Mainnet",
+   "native_symbol": "UNIT0",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88817,
+   "name": "Unit Zero Testnet",
+   "native_symbol": "UNIT0",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88882,
+   "name": "Chiliz Spicy Testnet",
+   "native_symbol": "CHZ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88888,
+   "name": "Chiliz Chain Mainnet",
+   "native_symbol": "CHZ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 90001,
+   "name": "Pundi AIFX Omnilayer Testnet",
+   "native_symbol": "PUNDAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 91342,
+   "name": "GIWA Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 97435,
+   "name": "SlingShot Testnet",
+   "native_symbol": "SLINGT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 97476,
+   "name": "Doma Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 97477,
+   "name": "Doma",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98864,
+   "name": "Plume Devnet (Legacy)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98865,
+   "name": "Plume (Legacy)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98866,
+   "name": "Plume Mainnet",
+   "native_symbol": "PLUME",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98867,
+   "name": "Plume Testnet",
+   "native_symbol": "PLUME",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98875,
+   "name": "Nillion Network",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 98985,
+   "name": "Superposition Testnet",
+   "native_symbol": "SPN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 99999,
+   "name": "ADI Network AB Testnet",
+   "native_symbol": "ADI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 102030,
+   "name": "Creditcoin",
+   "native_symbol": "CTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 103454,
+   "name": "Masa Testnet",
+   "native_symbol": "MASA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 105105,
+   "name": "Xertra Mainnet",
+   "native_symbol": "STRAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 111188,
+   "name": "re.al",
+   "native_symbol": "reETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 127001,
+   "name": "Gravity",
+   "native_symbol": "G",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 127823,
+   "name": "Etherlink Shadownet Testnet",
+   "native_symbol": "XTZ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 128123,
+   "name": "Etherlink Ghostnet Testnet",
+   "native_symbol": "XTZ",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 167000,
+   "name": "Taiko",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 167008,
+   "name": "Taiko Katla L2",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 167009,
+   "name": "Taiko Hekla (deprecated)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 167013,
+   "name": "Taiko Hoodi",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 175188,
+   "name": "Chronicle Yellowstone - Lit Protocol Testnet",
+   "native_symbol": "tstLPX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 181228,
+   "name": "HPP Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 190415,
+   "name": "HPP Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 200101,
+   "name": "Milkomeda C1 Testnet",
+   "native_symbol": "mTAda",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 200202,
+   "name": "Milkomeda A1 Testnet",
+   "native_symbol": "mTAlgo",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 200810,
+   "name": "Bitlayer Testnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 200901,
+   "name": "Bitlayer Mainnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 205205,
+   "name": "Auroria Testnet",
+   "native_symbol": "tSTRAX",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 210425,
+   "name": "PlatON Mainnet",
+   "native_symbol": "lat",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 222888,
+   "name": "Moca Chain Testnet",
+   "native_symbol": "MOCA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 314159,
+   "name": "Filecoin - Calibration testnet",
+   "native_symbol": "tFIL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 325000,
+   "name": "Camp Network Testnet V2",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 328527,
+   "name": "Nal Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 333999,
+   "name": "Polis Mainnet",
+   "native_symbol": "POLIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 369369,
+   "name": "Denergy Network",
+   "native_symbol": "WATT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 381931,
+   "name": "Metal C-Chain",
+   "native_symbol": "METAL",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 421611,
+   "name": "Arbitrum Rinkeby",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 421613,
+   "name": "Arbitrum Goerli",
+   "native_symbol": "AGOR",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 421614,
+   "name": "Arbitrum Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 444444,
+   "name": "Syndr L3 Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 490000,
+   "name": "Autonomys Taurus Testnet",
+   "native_symbol": "AI3",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 511111,
+   "name": "Alpha Chain Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 534351,
+   "name": "Scroll Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 534352,
+   "name": "Scroll",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 534353,
+   "name": "Scroll Alpha Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 543210,
+   "name": "ZERO Network",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 555666,
+   "name": "Eclipse Testnet",
+   "native_symbol": "ECLPS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 560048,
+   "name": "Ethereum Hoodi",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 622277,
+   "name": "Hypra Mainnet",
+   "native_symbol": "HYP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 656476,
+   "name": "EDU Chain Testnet",
+   "native_symbol": "EDU",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 660279,
+   "name": "Xai Mainnet",
+   "native_symbol": "XAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 668668,
+   "name": "Conwai Mainnet",
+   "native_symbol": "CNW",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 695569,
+   "name": "Pyrope Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 713715,
+   "name": "Sei Devnet",
+   "native_symbol": "SEI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 743111,
+   "name": "Hemi Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 747474,
+   "name": "katana",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 763373,
+   "name": "Ink Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 763375,
+   "name": "Surge Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 764984,
+   "name": "Lamina1 Testnet",
+   "native_symbol": "L1T",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 808813,
+   "name": "BOB Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 810180,
+   "name": "zkLink Nova Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 839999,
+   "name": "exSat Testnet",
+   "native_symbol": "BTC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 853211,
+   "name": "Testethiq",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 978657,
+   "name": "Treasure Ruby",
+   "native_symbol": "MAGIC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 984122,
+   "name": "Forma",
+   "native_symbol": "TIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1440000,
+   "name": "XRPL EVM Sidechain",
+   "native_symbol": "XRP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1449000,
+   "name": "XRPL EVM Sidechain Testnet",
+   "native_symbol": "XRP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1501869,
+   "name": "Waterfall 9 Test Network",
+   "native_symbol": "WATER",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2206132,
+   "name": "PlatON Dev Testnet2",
+   "native_symbol": "lat",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2632500,
+   "name": "COTI",
+   "native_symbol": "COTI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 3441006,
+   "name": "Manta Pacific Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 4457845,
+   "name": "ZERO Testnet (Sepolia)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 5042002,
+   "name": "Arc Network Testnet",
+   "native_symbol": "USDC",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6038361,
+   "name": "Astar zKyoto",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6281971,
+   "name": "DogeOS Chikyu Testnet",
+   "native_symbol": "DOGE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 6985385,
+   "name": "Humanity Protocol",
+   "native_symbol": "H",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7080969,
+   "name": "Humanity Protocol testnet",
+   "native_symbol": "tHP",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7225878,
+   "name": "Saakuru Mainnet",
+   "native_symbol": "OAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 7777777,
+   "name": "Zora",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 9999999,
+   "name": "Fluence",
+   "native_symbol": "FLT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11142220,
+   "name": "Celo Sepolia Testnet",
+   "native_symbol": "CELO",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11155111,
+   "name": "Ethereum Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11155420,
+   "name": "OP Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11155931,
+   "name": "RISE Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 12227332,
+   "name": "Neo X Testnet T4",
+   "native_symbol": "GAS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 13863860,
+   "name": "Symbiosis",
+   "native_symbol": "SIS",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 20250407,
+   "name": "PlatON Dev Testnet",
+   "native_symbol": "lat",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 21000000,
+   "name": "Corn",
+   "native_symbol": "BTCN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 52164803,
+   "name": "Fluence Testnet",
+   "native_symbol": "tFLT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 65100004,
+   "name": "Autonity Piccadilly (Tiber) Testnet",
+   "native_symbol": "ATN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 94204209,
+   "name": "Polygon Blackberry",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 111557560,
+   "name": "Cyber Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 123420111,
+   "name": "OP Celestia Raspberry",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 161221135,
+   "name": "Plume Testnet (Legacy)",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 168587773,
+   "name": "Blast Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 222000222,
+   "name": "Kanazawa",
+   "native_symbol": "gMELD",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 245022926,
+   "name": "Neon EVM Devnet",
+   "native_symbol": "NEON",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 245022934,
+   "name": "Neon EVM Mainnet",
+   "native_symbol": "NEON",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 253368190,
+   "name": "Flame",
+   "native_symbol": "TIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 328527624,
+   "name": "Nal Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 333000333,
+   "name": "Meld",
+   "native_symbol": "gMELD",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 476462898,
+   "name": "GPT Testnet",
+   "native_symbol": "SkpGPT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 531050104,
+   "name": "Sophon Testnet",
+   "native_symbol": "SOPH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 666666666,
+   "name": "Degen Chain",
+   "native_symbol": "DEGEN",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 888888888,
+   "name": "Ancient8",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 994873017,
+   "name": "Lumia Mainnet",
+   "native_symbol": "LUMIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 999999999,
+   "name": "Zora Sepolia Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1313161554,
+   "name": "Aurora Mainnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1313161555,
+   "name": "Aurora Testnet",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1417429182,
+   "name": "Zephyr Testnet",
+   "native_symbol": "Z",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1511670449,
+   "name": "GPT Mainnet",
+   "native_symbol": "GPT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1570754601,
+   "name": "Haust Testnet",
+   "native_symbol": "HAUST",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1660990954,
+   "name": "Status Network Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1666600000,
+   "name": "Harmony Mainnet Shard 0",
+   "native_symbol": "ONE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1666700000,
+   "name": "Harmony Testnet Shard 0",
+   "native_symbol": "ONE",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 1952959480,
+   "name": "Lumia Testnet",
+   "native_symbol": "LUMIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 2030232745,
+   "name": "Lumia Beam Testnet",
+   "native_symbol": "LUMIA",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11297108099,
+   "name": "Palm Testnet",
+   "native_symbol": "PALM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 11297108109,
+   "name": "Palm",
+   "native_symbol": "PALM",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 37714555429,
+   "name": "Xai Testnet v2",
+   "native_symbol": "sXAI",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 88153591557,
+   "name": "Arbitrum Blueberry",
+   "native_symbol": "CGT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 123420000220,
+   "name": "Fluence Stage",
+   "native_symbol": "tFLT",
+   "native_decimals": 18
+  },
+  {
+   "chain_id": 920637907288165,
+   "name": "Kakarot Starknet Sepolia",
+   "native_symbol": "ETH",
+   "native_decimals": 18
+  }
+ ]
+}
