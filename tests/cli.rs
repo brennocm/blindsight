@@ -440,3 +440,14 @@ fn argument_parser_errors_are_sanitised() {
         .code(0)
         .stdout(predicate::str::contains("Usage"));
 }
+
+#[test]
+fn standard_input_can_feed_only_one_source() {
+    blindsight()
+        .args(["verify", "--tx", "-", "--address-book", "-"])
+        .args(["--chain-id", "1", "--safe-version", "1.4.1"])
+        .write_stdin("{}")
+        .assert()
+        .code(2)
+        .stderr(predicate::str::contains("only one input"));
+}

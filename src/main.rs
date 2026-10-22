@@ -244,9 +244,27 @@ fn main() -> ExitCode {
     }
 }
 
+/// Standard input can be read once: at most one source may be `-`.
+fn single_stdin(tx: &TxArgs, knowledge: Option<&KnowledgeArgs>) -> anyhow::Result<()> {
+    let mut sources = vec![tx.tx.as_deref(), tx.exec_calldata.as_deref()];
+    if let Some(k) = knowledge {
+        sources.push(k.address_book.as_deref());
+        sources.extend(
+            k.abi
+                .iter()
+                .map(|b| b.split_once('=').map(|(_, path)| path)),
+        );
+    }
+    if sources.into_iter().flatten().filter(|s| *s == "-").count() > 1 {
+        bail!("only one input can be read from standard input (`-`)");
+    }
+    Ok(())
+}
+
 fn run(command: Command) -> anyhow::Result<u8> {
     match command {
         Command::Verify(args) => {
+            single_stdin(&args.tx, Some(&args.knowledge))?;
             let input = read_transaction(&args.tx)?;
             let fail_on: Severity = args
                 .fail_on
@@ -277,6 +295,7 @@ fn run(command: Command) -> anyhow::Result<u8> {
             emit(&report, args.format)
         }
         Command::Decode(args) => {
+            single_stdin(&args.tx, Some(&args.knowledge))?;
             let mut input = read_transaction(&args.tx)?;
             let (address_book, user_abis, mut book_warnings) = read_knowledge(&args.knowledge)?;
             input.warnings.append(&mut book_warnings);
