@@ -10,6 +10,7 @@
 
 mod delegate_001;
 mod delegate_002;
+mod module_001;
 mod owners_001;
 mod semantics_001;
 mod threshold_001;
@@ -207,16 +208,18 @@ pub enum Detector {
     Semantics001,
     Owners001,
     Threshold001,
+    Module001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 5] = [
+    pub const ALL: [Detector; 6] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
         Detector::Owners001,
         Detector::Threshold001,
+        Detector::Module001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -247,6 +250,7 @@ impl Detector {
             Detector::Semantics001 => include_str!("../../docs/detectors/BS-SEMANTICS-001.md"),
             Detector::Owners001 => include_str!("../../docs/detectors/BS-OWNERS-001.md"),
             Detector::Threshold001 => include_str!("../../docs/detectors/BS-THRESHOLD-001.md"),
+            Detector::Module001 => include_str!("../../docs/detectors/BS-MODULE-001.md"),
         }
     }
 
@@ -284,6 +288,11 @@ impl Detector {
                 "Threshold change",
                 "high; critical if the new threshold is 1",
             ),
+            Detector::Module001 => (
+                module_001::ID,
+                "Module enabled or disabled",
+                "critical (enable), medium (disable)",
+            ),
         }
     }
 
@@ -295,6 +304,7 @@ impl Detector {
             Detector::Semantics001 => semantics_001::check(ctx, node),
             Detector::Owners001 => owners_001::check(ctx, node),
             Detector::Threshold001 => threshold_001::check(ctx, node),
+            Detector::Module001 => module_001::check(ctx, node),
         }
     }
 }
