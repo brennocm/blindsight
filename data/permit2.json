@@ -1,0 +1,6 @@
+{
+ "source": "https://github.com/Uniswap/permit2 test/utils/DeployPermit2.sol (PERMIT2_ADDRESS) at commit cc56ad0f3439c502c246fc5cfcc3db92bb8b7219",
+ "verification": "eth_getCode on each chain below returned 9152 bytes of code containing the approve(address,address,uint160,uint48) selector 0x87517c45 (2026-10-22)",
+ "address": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+ "chain_ids": [1, 10, 56, 137, 8453, 42161, 11155111]
+}

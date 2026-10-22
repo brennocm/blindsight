@@ -10,7 +10,7 @@
 use alloy_primitives::Address;
 
 use super::functions::{FunctionKind, KnownCall};
-use crate::registry::{OfficialContract, SafeContracts, Token, TokenList};
+use crate::registry::{OfficialContract, Registry, Token};
 use crate::safe::Operation;
 
 /// Whether a decoded call's meaning is established.
@@ -38,6 +38,8 @@ pub enum Verification {
     ExecutingSafe,
     /// A function of an official Safe helper, delegatecalled as intended.
     Official(OfficialContract),
+    /// A Permit2 function, called on the Permit2 contract.
+    Permit2,
 }
 
 /// Official contract names that implement each helper function.
@@ -65,15 +67,18 @@ pub fn semantics(
     operation: Operation,
     executor: Address,
     chain_id: u64,
-    contracts: &SafeContracts,
-    tokens: &TokenList,
+    registry: &Registry,
 ) -> Semantics {
     let verified = match (call.kind(), operation) {
         // A token function only means a token operation when it is a CALL:
         // delegatecalled, the token's code would run on the Safe's storage.
-        (FunctionKind::Erc20, Operation::Call) => tokens
+        (FunctionKind::Erc20, Operation::Call) => registry
+            .tokens
             .get(chain_id, to)
             .map(|t| Verification::KnownToken(t.clone())),
+        (FunctionKind::Permit2, Operation::Call) if registry.permit2.is_at(chain_id, to) => {
+            Some(Verification::Permit2)
+        }
         (FunctionKind::SafeAdmin, Operation::Call) if to == executor => {
             Some(Verification::ExecutingSafe)
         }
@@ -84,7 +89,8 @@ pub fn semantics(
             | FunctionKind::CreateCall
             | FunctionKind::Migration,
             Operation::DelegateCall,
-        ) => contracts
+        ) => registry
+            .contracts
             .at(chain_id, to)
             .iter()
             .find(|c| official_names(call).contains(&c.name.as_str()))
@@ -101,7 +107,7 @@ mod tests {
     use alloy_primitives::U256;
 
     use super::*;
-    use crate::registry::{safe_contracts, tokens};
+    use crate::registry::Registry;
 
     fn addr(s: &str) -> Address {
         s.parse().unwrap()
@@ -114,15 +120,7 @@ mod tests {
         executor: Address,
         chain: u64,
     ) -> Semantics {
-        semantics(
-            call,
-            to,
-            op,
-            executor,
-            chain,
-            safe_contracts().unwrap(),
-            tokens().unwrap(),
-        )
+        semantics(call, to, op, executor, chain, &Registry::load().unwrap())
     }
 
     const USDC: &str = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";

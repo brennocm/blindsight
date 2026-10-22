@@ -1,4 +1,5 @@
-//! Data embedded at build time: chains, official Safe contracts and tokens.
+//! Data embedded at build time: chains, official Safe contracts, tokens and
+//! the Permit2 contract.
 //! Each file in `data/` records its upstream source and commit. Nothing is
 //! ever fetched at run time (ADR 0002).
 //!
@@ -9,6 +10,7 @@
 
 mod chains;
 mod contracts;
+mod permit2;
 mod tokens;
 
 use alloy_primitives::Address;
@@ -16,7 +18,37 @@ use thiserror::Error;
 
 pub use chains::{Chain, ChainTable, chains};
 pub use contracts::{OfficialContract, Role, SafeContracts, safe_contracts};
+pub use permit2::{Permit2, permit2};
 pub use tokens::{Token, TokenList, tokens};
+
+/// All embedded tables, loaded together.
+#[derive(Debug, Clone, Copy)]
+pub struct Registry {
+    /// Chains with an official Safe deployment.
+    pub chains: &'static ChainTable,
+    /// Official Safe contracts.
+    pub contracts: &'static SafeContracts,
+    /// Curated tokens.
+    pub tokens: &'static TokenList,
+    /// The Permit2 contract.
+    pub permit2: &'static Permit2,
+}
+
+impl Registry {
+    /// Loads (on first use) and returns every table.
+    ///
+    /// # Errors
+    ///
+    /// Only if embedded data is corrupt, which the tests rule out.
+    pub fn load() -> Result<Registry, RegistryError> {
+        Ok(Registry {
+            chains: chains()?,
+            contracts: safe_contracts()?,
+            tokens: tokens()?,
+            permit2: permit2()?,
+        })
+    }
+}
 
 /// Embedded data failed to load. This is a build defect, not an input error.
 #[derive(Debug, Clone, PartialEq, Eq, Error)]

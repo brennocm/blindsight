@@ -59,6 +59,11 @@ sol! {
         );
     }
 
+    /// Uniswap Permit2 (`AllowanceTransfer`), source at commit `cc56ad0f`.
+    interface IPermit2 {
+        function approve(address token, address spender, uint160 amount, uint48 expiration);
+    }
+
     /// Official helper libraries.
     interface IHelpers {
         function multiSend(bytes transactions);
@@ -111,6 +116,12 @@ pub enum KnownCall {
     SetApprovalForAll {
         operator: Address,
         approved: bool,
+    },
+    Permit2Approve {
+        token: Address,
+        spender: Address,
+        amount: U256,
+        expiration: u64,
     },
     SafeTransferFrom1155 {
         from: Address,
@@ -234,6 +245,8 @@ pub enum FunctionKind {
     Erc20,
     /// ERC-721 or ERC-1155 function.
     Nft,
+    /// Allowance function of the Permit2 contract.
+    Permit2,
     /// Administrative function of the executing Safe itself.
     SafeAdmin,
     /// A transaction or hash approval addressed to another Safe.
@@ -295,6 +308,7 @@ impl KnownCall {
                 IERC721::setApprovalForAllCall::SIGNATURE,
                 K::Nft,
             ),
+            C::Permit2Approve { .. } => ("approve", IPermit2::approveCall::SIGNATURE, K::Permit2),
             C::SafeTransferFrom1155 { .. } => (
                 "safeTransferFrom",
                 IERC1155::safeTransferFromCall::SIGNATURE,
@@ -451,6 +465,17 @@ impl KnownCall {
             C::SetApprovalForAll { operator, approved } => {
                 vec![("operator", A(*operator)), ("approved", Bool(*approved))]
             }
+            C::Permit2Approve {
+                token,
+                spender,
+                amount,
+                expiration,
+            } => vec![
+                ("token", A(*token)),
+                ("spender", A(*spender)),
+                ("amount", U(*amount)),
+                ("expiration", U(U256::from(*expiration))),
+            ],
             C::SafeTransferFrom1155 {
                 from,
                 to,
@@ -623,6 +648,13 @@ pub fn decode_known(data: &[u8]) -> Option<Result<KnownCall, String>> {
             operator: c.operator,
             approved: c.approved,
         })
+    } else if s == IPermit2::approveCall::SELECTOR {
+        decode::<IPermit2::approveCall>(data).map(|c| K::Permit2Approve {
+            token: c.token,
+            spender: c.spender,
+            amount: U256::from(c.amount),
+            expiration: c.expiration.to::<u64>(),
+        })
     } else if s == IERC1155::safeTransferFromCall::SELECTOR {
         decode::<IERC1155::safeTransferFromCall>(data).map(|c| K::SafeTransferFrom1155 {
             from: c.from,
@@ -751,6 +783,7 @@ mod tests {
 
     /// Every signature blindsight knows, with its selector. Signatures were
     /// checked against their primary sources (EIP-20, EIP-721, EIP-1155,
+    /// Uniswap `permit2` `IAllowanceTransfer.sol`,
     /// `OpenZeppelin` `ERC20.sol` v4.9.6 for `increaseAllowance`, and the Safe
     /// contract sources); selectors were computed with `pycryptodome`'s keccak,
     /// an implementation independent of the one under test, and agree with
@@ -775,6 +808,10 @@ mod tests {
             [0xb8, 0x8d, 0x4f, 0xde],
         ),
         ("setApprovalForAll(address,bool)", [0xa2, 0x2c, 0xb4, 0x65]),
+        (
+            "approve(address,address,uint160,uint48)",
+            [0x87, 0x51, 0x7c, 0x45],
+        ),
         (
             "safeTransferFrom(address,address,uint256,uint256,bytes)",
             [0xf2, 0x42, 0x43, 0x2a],
@@ -892,6 +929,12 @@ mod tests {
                 operator: a,
                 approved: true,
             },
+            K::Permit2Approve {
+                token: a,
+                spender: b,
+                amount: n,
+                expiration: 1_900_000_000,
+            },
             K::SafeTransferFrom1155 {
                 from: a,
                 to: b,
@@ -1006,6 +1049,18 @@ mod tests {
             K::SetApprovalForAll { operator, approved } => {
                 IERC721::setApprovalForAllCall { operator, approved }.abi_encode()
             }
+            K::Permit2Approve {
+                token,
+                spender,
+                amount,
+                expiration,
+            } => IPermit2::approveCall {
+                token,
+                spender,
+                amount: amount.to(),
+                expiration: alloy_primitives::aliases::U48::from(expiration),
+            }
+            .abi_encode(),
             K::SafeTransferFrom1155 {
                 from,
                 to,

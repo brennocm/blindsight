@@ -20,7 +20,7 @@ pub use functions::{ArgValue, FunctionKind, KnownCall, decode_known};
 pub use semantics::{Semantics, Verification};
 pub use user_abi::{UserAbiError, UserAbis, UserCall};
 
-use crate::registry::{self, RegistryError, SafeContracts, TokenList};
+use crate::registry::{Registry, RegistryError};
 use crate::safe::{Operation, SafeAccount, SafeTx};
 
 /// Deepest level decoded. The root is level 0; each batch or nested Safe
@@ -182,8 +182,7 @@ impl CallNode {
 struct Ctx<'a> {
     chain_id: u64,
     user_abis: &'a UserAbis,
-    contracts: &'a SafeContracts,
-    tokens: &'a TokenList,
+    registry: Registry,
 }
 
 /// Decodes `tx`, executed by `account`, into a call tree. Calls to an
@@ -201,8 +200,7 @@ pub fn decode_tree(
     let ctx = Ctx {
         chain_id: account.chain_id,
         user_abis,
-        contracts: registry::safe_contracts()?,
-        tokens: registry::tokens()?,
+        registry: Registry::load()?,
     };
     Ok(decode_node(
         &ctx,
@@ -275,15 +273,8 @@ fn decode_content(
         }
         Some(Ok(call)) => call,
     };
-    let semantics = semantics::semantics(
-        &call,
-        to,
-        operation,
-        executor,
-        ctx.chain_id,
-        ctx.contracts,
-        ctx.tokens,
-    );
+    let semantics =
+        semantics::semantics(&call, to, operation, executor, ctx.chain_id, &ctx.registry);
     match call {
         KnownCall::MultiSend { transactions } => {
             let entries = match multisend::unpack(&transactions) {
