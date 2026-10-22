@@ -10,6 +10,7 @@
 
 mod delegate_001;
 mod delegate_002;
+mod fallback_001;
 mod guard_001;
 mod module_001;
 mod owners_001;
@@ -211,11 +212,12 @@ pub enum Detector {
     Threshold001,
     Module001,
     Guard001,
+    Fallback001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 7] = [
+    pub const ALL: [Detector; 8] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -223,6 +225,7 @@ impl Detector {
         Detector::Threshold001,
         Detector::Module001,
         Detector::Guard001,
+        Detector::Fallback001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -255,6 +258,7 @@ impl Detector {
             Detector::Threshold001 => include_str!("../../docs/detectors/BS-THRESHOLD-001.md"),
             Detector::Module001 => include_str!("../../docs/detectors/BS-MODULE-001.md"),
             Detector::Guard001 => include_str!("../../docs/detectors/BS-GUARD-001.md"),
+            Detector::Fallback001 => include_str!("../../docs/detectors/BS-FALLBACK-001.md"),
         }
     }
 
@@ -298,6 +302,11 @@ impl Detector {
                 "critical (enable), medium (disable)",
             ),
             Detector::Guard001 => (guard_001::ID, "Transaction or module guard change", "high"),
+            Detector::Fallback001 => (
+                fallback_001::ID,
+                "Fallback handler change",
+                "high; low if the handler is official",
+            ),
         }
     }
 
@@ -311,6 +320,7 @@ impl Detector {
             Detector::Threshold001 => threshold_001::check(ctx, node),
             Detector::Module001 => module_001::check(ctx, node),
             Detector::Guard001 => guard_001::check(ctx, node),
+            Detector::Fallback001 => fallback_001::check(ctx, node),
         }
     }
 }
