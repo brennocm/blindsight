@@ -10,6 +10,7 @@
 
 mod delegate_001;
 mod delegate_002;
+mod semantics_001;
 
 #[cfg(test)]
 mod testutil;
@@ -201,11 +202,16 @@ impl Context<'_> {
 pub enum Detector {
     Delegate001,
     Delegate002,
+    Semantics001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 2] = [Detector::Delegate001, Detector::Delegate002];
+    pub const ALL: [Detector; 3] = [
+        Detector::Delegate001,
+        Detector::Delegate002,
+        Detector::Semantics001,
+    ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
     pub fn id(self) -> &'static str {
@@ -232,6 +238,7 @@ impl Detector {
         match self {
             Detector::Delegate001 => include_str!("../../docs/detectors/BS-DELEGATE-001.md"),
             Detector::Delegate002 => include_str!("../../docs/detectors/BS-DELEGATE-002.md"),
+            Detector::Semantics001 => include_str!("../../docs/detectors/BS-SEMANTICS-001.md"),
         }
     }
 
@@ -254,6 +261,11 @@ impl Detector {
                 "Delegatecall inside a batch",
                 "critical (untrusted target), medium (official helper), info (MultiSendCallOnly)",
             ),
+            Detector::Semantics001 => (
+                semantics_001::ID,
+                "Function name is a guess",
+                "low; critical under delegatecall",
+            ),
         }
     }
 
@@ -262,6 +274,7 @@ impl Detector {
         match self {
             Detector::Delegate001 => delegate_001::check(ctx, node),
             Detector::Delegate002 => delegate_002::check(ctx, node),
+            Detector::Semantics001 => semantics_001::check(ctx, node),
         }
     }
 }
