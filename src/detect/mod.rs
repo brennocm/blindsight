@@ -9,6 +9,7 @@
 //! compiled in for `blindsight detectors explain`.
 
 mod delegate_001;
+mod delegate_002;
 
 #[cfg(test)]
 mod testutil;
@@ -199,11 +200,12 @@ impl Context<'_> {
 #[allow(missing_docs)] // Each variant is documented by its `docs/detectors/<ID>.md`.
 pub enum Detector {
     Delegate001,
+    Delegate002,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 1] = [Detector::Delegate001];
+    pub const ALL: [Detector; 2] = [Detector::Delegate001, Detector::Delegate002];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
     pub fn id(self) -> &'static str {
@@ -229,6 +231,7 @@ impl Detector {
     pub fn documentation(self) -> &'static str {
         match self {
             Detector::Delegate001 => include_str!("../../docs/detectors/BS-DELEGATE-001.md"),
+            Detector::Delegate002 => include_str!("../../docs/detectors/BS-DELEGATE-002.md"),
         }
     }
 
@@ -246,6 +249,11 @@ impl Detector {
                 "Delegatecall to an untrusted contract",
                 "critical",
             ),
+            Detector::Delegate002 => (
+                delegate_002::ID,
+                "Delegatecall inside a batch",
+                "critical (untrusted target), medium (official helper), info (MultiSendCallOnly)",
+            ),
         }
     }
 
@@ -253,6 +261,7 @@ impl Detector {
     pub fn check(self, ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
         match self {
             Detector::Delegate001 => delegate_001::check(ctx, node),
+            Detector::Delegate002 => delegate_002::check(ctx, node),
         }
     }
 }
