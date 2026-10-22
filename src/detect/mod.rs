@@ -9,6 +9,7 @@
 //! compiled in for `blindsight detectors explain`.
 
 mod approval_001;
+mod approval_002;
 mod delegate_001;
 mod delegate_002;
 mod fallback_001;
@@ -219,11 +220,12 @@ pub enum Detector {
     Impl001,
     Refund001,
     Approval001,
+    Approval002,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 11] = [
+    pub const ALL: [Detector; 12] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -235,6 +237,7 @@ impl Detector {
         Detector::Impl001,
         Detector::Refund001,
         Detector::Approval001,
+        Detector::Approval002,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -254,7 +257,7 @@ impl Detector {
 
     /// Whether the detector is experimental.
     pub fn is_experimental(self) -> bool {
-        false
+        matches!(self, Detector::Approval002)
     }
 
     /// The detector's documentation (`docs/detectors/<ID>.md`).
@@ -271,6 +274,7 @@ impl Detector {
             Detector::Impl001 => include_str!("../../docs/detectors/BS-IMPL-001.md"),
             Detector::Refund001 => include_str!("../../docs/detectors/BS-REFUND-001.md"),
             Detector::Approval001 => include_str!("../../docs/detectors/BS-APPROVAL-001.md"),
+            Detector::Approval002 => include_str!("../../docs/detectors/BS-APPROVAL-002.md"),
         }
     }
 
@@ -334,6 +338,11 @@ impl Detector {
                 "Unlimited or operator approval",
                 "high (unlimited or operator), info (bounded or revoked)",
             ),
+            Detector::Approval002 => (
+                approval_002::ID,
+                "Permit2 allowance (experimental)",
+                "high (unlimited), info (bounded)",
+            ),
         }
     }
 
@@ -351,6 +360,7 @@ impl Detector {
             Detector::Impl001 => impl_001::check(ctx, node),
             Detector::Refund001 => refund_001::check(ctx, node),
             Detector::Approval001 => approval_001::check(ctx, node),
+            Detector::Approval002 => approval_002::check(ctx, node),
         }
     }
 }
