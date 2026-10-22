@@ -28,3 +28,21 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Commands `verify`, `hash`, `decode`, `detectors list|explain` and
   `version`; text and JSON output (`schema_version` 1); expected-hash checks
   with `--expect-*`; exit codes 0/1/2/3 (`docs/OUTPUT.md`).
+- Release configuration: archives for Linux, macOS and Windows (x86_64 and
+  aarch64) with checksums, a CycloneDX SBOM, `cargo-auditable` metadata and
+  build-provenance attestations.
+
+### Security
+
+Fixed during the final security review, before any release:
+
+- Argument-parser errors could pass a right-to-left override or a carriage
+  return from a command-line argument to the terminal; they are now
+  sanitised.
+- A user ABI bound to a `MultiSend` address could turn the batch into an
+  opaque call hidden from the detectors; built-in decoding now always takes
+  precedence (ADR 0008).
+- A payload nested beyond the analysis depth was reported high; it is now
+  critical.
+- `signMessage` through `SignMessageLib` and value sent through `CreateCall`
+  now produce findings.

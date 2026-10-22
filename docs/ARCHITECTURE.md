@@ -33,7 +33,7 @@ flowchart LR
 | `input/` | Strict parsers per field (`fields.rs`); JSON input with duplicate-key rejection (`json.rs`); `execTransaction` decoding (`exec.rs`); merging sources and applying defaults (`mod.rs`). |
 | `safe/` | `SafeVersion`, `Operation`, `SafeTx`, `SafeAccount`; the hand-written EIP-712 encoder (`hash.rs`) and the alloy one (`eip712.rs`), compared on every call ([ADR 0005](adr/0005-dual-hashing-and-supported-versions.md)). |
 | `registry/` | Embedded tables parsed once with `LazyLock`: official Safe contracts by `(chain, address)`, chain names, tokens, Permit2 ([ADR 0007](adr/0007-embedded-registry.md)). |
-| `decode/` | Known functions decoded with `sol!` (`functions.rs`), strict `MultiSend` unpacking (`multisend.rs`), verified-vs-inferred semantics (`semantics.rs`, [ADR 0006](adr/0006-verified-and-inferred-semantics.md)), user ABIs (`user_abi.rs`), the call tree (`mod.rs`). |
+| `decode/` | Known functions decoded with `sol!` (`functions.rs`), strict `MultiSend` unpacking (`multisend.rs`), verified-vs-inferred semantics (`semantics.rs`, [ADR 0006](adr/0006-verified-and-inferred-semantics.md)), user ABIs, consulted only for unknown selectors (`user_abi.rs`, [ADR 0008](adr/0008-user-abis-never-override-built-in-decoding.md)), the call tree (`mod.rs`). |
 | `addressbook/` | The user's named addresses and look-alike detection. |
 | `detect/` | `Severity`, `Finding`, `Context`, the `Detector` enum and one file per detector, each with its tests. |
 | `report/` | `analyse()` runs a command; text and JSON renderers; signature classification; exit codes. |
