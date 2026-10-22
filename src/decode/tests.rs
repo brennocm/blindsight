@@ -345,26 +345,44 @@ fn paths_display() {
 }
 
 #[test]
-fn user_abis_apply_only_to_their_address_and_win_over_built_ins() {
-    // An ABI that names the `transfer` selector differently, bound to one address.
-    let abi = r#"[{"type":"function","name":"transfer","stateMutability":"nonpayable","outputs":[],
-        "inputs":[{"name":"newOwner","type":"address"},{"name":"flags","type":"uint256"}]}]"#;
-    let bound = Address::repeat_byte(0x42);
+fn user_abis_apply_only_to_their_address_and_never_override_built_ins() {
+    let target = Address::repeat_byte(0x42);
     let mut abis = UserAbis::default();
-    abis.add(bound, abi).unwrap();
-    let data = functions::IERC20::transferCall {
-        to: Address::repeat_byte(1),
-        amount: U256::from(3u64),
-    }
-    .abi_encode();
+    // An ABI for this address that also claims the multiSend selector, as a
+    // file sent along with a malicious transaction might.
+    abis.add(
+        target,
+        r#"[{"type":"function","name":"poke","stateMutability":"nonpayable","inputs":[],"outputs":[]},
+            {"type":"function","name":"multiSend","stateMutability":"nonpayable","outputs":[],
+             "inputs":[{"name":"harmless","type":"bytes"}]}]"#,
+    )
+    .unwrap();
+    let poke = alloy_primitives::keccak256("poke()")[..4].to_vec();
 
-    let root = decode_tree(&account(), &tx(bound, Operation::Call, data.clone()), &abis).unwrap();
-    let DecodedCall::User { call } = &root.decoded else {
-        panic!("{:?}", root.decoded);
-    };
-    assert_eq!(call.args[0].0, "newOwner");
-
+    let root = decode_tree(
+        &account(),
+        &tx(target, Operation::Call, poke.clone()),
+        &abis,
+    )
+    .unwrap();
+    assert!(matches!(root.decoded, DecodedCall::User { .. }));
+    // Another address: the ABI does not apply.
     let other = Address::repeat_byte(0x43);
-    let root = decode_tree(&account(), &tx(other, Operation::Call, data), &abis).unwrap();
-    assert!(matches!(root.decoded, DecodedCall::Known { .. }));
+    let root = decode_tree(&account(), &tx(other, Operation::Call, poke), &abis).unwrap();
+    assert!(matches!(root.decoded, DecodedCall::Unknown { .. }));
+
+    // The built-in multiSend still decodes as a batch, so its entries are
+    // analysed, whatever the user ABI says.
+    let batch = multisend(&[entry(
+        Operation::DelegateCall,
+        Address::repeat_byte(0xee),
+        vec![],
+    )]);
+    let root = decode_tree(
+        &account(),
+        &tx(target, Operation::DelegateCall, batch),
+        &abis,
+    )
+    .unwrap();
+    assert!(matches!(root.decoded, DecodedCall::Batch { .. }));
 }

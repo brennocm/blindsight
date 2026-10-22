@@ -3,7 +3,9 @@
 //!
 //! An ABI is bound to one address: blindsight only uses it for calls to that
 //! address, so a function name from it describes code the user vouches for.
-//! It never makes a delegatecall target trusted.
+//! It never makes a delegatecall target trusted, and it is only consulted
+//! for selectors the built-in table does not know: an ABI file cannot turn a
+//! `multiSend` or `execTransaction` into an opaque call (ADR 0008).
 //!
 //! The decoded values must re-encode to exactly the original arguments. This
 //! rejects dirty high bytes and other non-canonical encodings, matching the

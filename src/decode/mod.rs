@@ -185,8 +185,8 @@ struct Ctx<'a> {
     registry: Registry,
 }
 
-/// Decodes `tx`, executed by `account`, into a call tree. Calls to an
-/// address with a user ABI are decoded with it first.
+/// Decodes `tx`, executed by `account`, into a call tree. A user ABI is
+/// used only for selectors the built-in table does not know.
 ///
 /// # Errors
 ///
@@ -249,20 +249,20 @@ fn decode_content(
     if data.is_empty() {
         return DecodedCall::Empty;
     }
-    match ctx.user_abis.decode(to, data) {
-        Some(Ok(call)) => return DecodedCall::User { call },
-        Some(Err(reason)) => {
-            return DecodedCall::Malformed {
-                function: None,
-                reason,
-            };
-        }
-        None => {}
-    }
     let call = match decode_known(data) {
+        // Built-in functions always win: a user ABI must not be able to turn
+        // a `multiSend` or `execTransaction` into an opaque call and hide
+        // what is inside it from the detectors.
         None => {
-            return DecodedCall::Unknown {
-                selector: data.get(..4).and_then(|s| s.try_into().ok()),
+            return match ctx.user_abis.decode(to, data) {
+                Some(Ok(call)) => DecodedCall::User { call },
+                Some(Err(reason)) => DecodedCall::Malformed {
+                    function: None,
+                    reason,
+                },
+                None => DecodedCall::Unknown {
+                    selector: data.get(..4).and_then(|s| s.try_into().ok()),
+                },
             };
         }
         Some(Err(reason)) => {
