@@ -1,0 +1,173 @@
+---
+source: tests/detect.rs
+expression: out
+---
+add-owner-130: high
+  high     BS-OWNERS-001    root
+  info     BS-SELF-001      root
+add-owner-150-l2: critical
+  critical BS-OWNERS-001    root
+  info     BS-SELF-001      root
+arb-multisend-141: medium
+  medium   BS-DECODE-001    batch[0]
+  info     BS-TARGET-001    batch[0]
+bsc-multisend-130-from-safe-141: medium
+  medium   BS-DECODE-001    batch[1]
+  info     BS-APPROVAL-001  batch[0]
+  info     BS-TARGET-001    batch[1]
+bsc-transfer: low
+  low      BS-SEMANTICS-001 root
+  info     BS-TARGET-001    root
+bybit: critical
+  critical BS-DELEGATE-001  root
+  critical BS-SEMANTICS-001 root
+  low      BS-REPLAY-001    root
+  info     BS-TARGET-001    root
+bybit-legit-nonce67-token: low
+  low      BS-SEMANTICS-001 root
+  low      BS-REPLAY-001    root
+  info     BS-TARGET-001    root
+bybit-legit-nonce70: low
+  low      BS-REPLAY-001    root
+  info     BS-VALUE-001     root
+  info     BS-TARGET-001    root
+change-threshold: high
+  high     BS-THRESHOLD-001 root
+  info     BS-SELF-001      root
+disable-module: medium
+  medium   BS-MODULE-001    root
+  info     BS-SELF-001      root
+erc20-approve-base: low
+  low      BS-SEMANTICS-001 root
+  info     BS-APPROVAL-001  root
+  info     BS-TARGET-001    root
+erc20-approve-gnosis: low
+  low      BS-SEMANTICS-001 root
+  info     BS-APPROVAL-001  root
+  info     BS-TARGET-001    root
+erc20-transfer-eth-141: none
+erc20-transfer-polygon-130: low
+  low      BS-SEMANTICS-001 root
+  info     BS-TARGET-001    root
+gas-refund: medium
+  medium   BS-REFUND-001    root
+  medium   BS-DECODE-001    batch[0]
+  medium   BS-DECODE-001    batch[1]
+  medium   BS-DECODE-001    batch[2]
+  medium   BS-DECODE-001    batch[3]
+  medium   BS-DECODE-001    batch[4]
+  medium   BS-DECODE-001    batch[5]
+  medium   BS-DECODE-001    batch[6]
+  medium   BS-DECODE-001    batch[7]
+  medium   BS-DECODE-001    batch[8]
+  info     BS-TARGET-001    batch[0]
+  info     BS-TARGET-001    batch[1]
+  info     BS-TARGET-001    batch[2]
+  info     BS-TARGET-001    batch[3]
+  info     BS-TARGET-001    batch[4]
+  info     BS-TARGET-001    batch[5]
+  info     BS-TARGET-001    batch[6]
+  info     BS-TARGET-001    batch[7]
+  info     BS-TARGET-001    batch[8]
+multisend-141-l2: medium
+  medium   BS-DECODE-001    batch[1]
+  medium   BS-DECODE-001    batch[3]
+  medium   BS-DECODE-001    batch[5]
+  low      BS-SEMANTICS-001 batch[0]
+  low      BS-SEMANTICS-001 batch[2]
+  low      BS-SEMANTICS-001 batch[4]
+  info     BS-APPROVAL-001  batch[0]
+  info     BS-TARGET-001    batch[0]
+  info     BS-TARGET-001    batch[1]
+  info     BS-APPROVAL-001  batch[2]
+  info     BS-TARGET-001    batch[2]
+  info     BS-TARGET-001    batch[3]
+  info     BS-APPROVAL-001  batch[4]
+  info     BS-TARGET-001    batch[4]
+  info     BS-TARGET-001    batch[5]
+multisend-enable-module: critical
+  critical BS-MODULE-001    batch[1]
+  medium   BS-MODULE-001    batch[0]
+  medium   BS-DECODE-001    batch[2]
+  medium   BS-DECODE-001    batch[3]
+  medium   BS-DECODE-001    batch[4]
+  medium   BS-DECODE-001    batch[5]
+  medium   BS-DECODE-001    batch[6]
+  medium   BS-DECODE-001    batch[7]
+  medium   BS-DECODE-001    batch[8]
+  medium   BS-DECODE-001    batch[9]
+  medium   BS-DECODE-001    batch[10]
+  medium   BS-DECODE-001    batch[11]
+  medium   BS-DECODE-001    batch[12]
+  medium   BS-DECODE-001    batch[13]
+  medium   BS-DECODE-001    batch[14]
+  medium   BS-DECODE-001    batch[15]
+  medium   BS-DECODE-001    batch[16]
+  medium   BS-DECODE-001    batch[17]
+  info     BS-SELF-001      batch[0]
+  info     BS-SELF-001      batch[1]
+  info     BS-TARGET-001    batch[2]
+  info     BS-TARGET-001    batch[3]
+  info     BS-TARGET-001    batch[4]
+  info     BS-TARGET-001    batch[5]
+  info     BS-TARGET-001    batch[6]
+  info     BS-TARGET-001    batch[7]
+  info     BS-TARGET-001    batch[8]
+  info     BS-TARGET-001    batch[9]
+  info     BS-TARGET-001    batch[10]
+  info     BS-TARGET-001    batch[11]
+  info     BS-TARGET-001    batch[12]
+  info     BS-TARGET-001    batch[13]
+  info     BS-TARGET-001    batch[14]
+  info     BS-TARGET-001    batch[15]
+  info     BS-TARGET-001    batch[16]
+  info     BS-TARGET-001    batch[17]
+multisend-set-guard: high
+  high     BS-GUARD-001     batch[1]
+  medium   BS-DECODE-001    batch[0]
+  info     BS-TARGET-001    batch[0]
+  info     BS-SELF-001      batch[1]
+op-multisend-141: medium
+  medium   BS-DECODE-001    batch[0]
+  info     BS-TARGET-001    batch[0]
+remove-owner: high
+  high     BS-OWNERS-001    root
+  info     BS-SELF-001      root
+sepolia-transfer: medium
+  medium   BS-DECODE-001    root
+  info     BS-TARGET-001    root
+set-pre-signature: medium
+  medium   BS-DECODE-001    root
+  info     BS-TARGET-001    root
+sign-message-lib: none
+swap-owner: high
+  high     BS-OWNERS-001    root
+  info     BS-SELF-001      root
+unknown-selector-call: medium
+  medium   BS-DECODE-001    root
+  info     BS-TARGET-001    root
+v100-delegatecall-token-refund: high
+  high     BS-REFUND-001    root
+  high     BS-OWNERS-001    batch[0]
+  high     BS-OWNERS-001    batch[1]
+  low      BS-REPLAY-001    root
+  info     BS-SELF-001      batch[0]
+  info     BS-SELF-001      batch[1]
+v100-eth-refund-native: high
+  high     BS-REFUND-001    root
+  low      BS-REPLAY-001    root
+  info     BS-VALUE-001     root
+  info     BS-TARGET-001    root
+v100-swapowner-token-refund: high
+  high     BS-OWNERS-001    root
+  high     BS-REFUND-001    root
+  low      BS-REPLAY-001    root
+  info     BS-SELF-001      root
+value-with-unknown-call: medium
+  medium   BS-DECODE-001    root
+  info     BS-VALUE-001     root
+  info     BS-TARGET-001    root
+wazirx: critical
+  critical BS-DELEGATE-001  root
+  medium   BS-DECODE-001    root
+  info     BS-TARGET-001    root

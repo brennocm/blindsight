@@ -5,6 +5,9 @@ Status: **approved** (2026-10-22). Each detector gets its own page
 
 ## Conventions
 
+- **Implementation:** one file per detector in `src/detect/`, with its tests;
+  this page is the overview, each `docs/detectors/<ID>.md` the reference
+  (also printed by `blindsight detectors explain <ID>`).
 - **Severities:** `critical` > `high` > `medium` > `low` > `info`. The report
   verdict is the highest severity found. `--fail-on` (default `high`) sets the
   exit-code threshold.
@@ -128,7 +131,8 @@ Status: **approved** (2026-10-22). Each detector gets its own page
     `BS-DELEGATE-001`; the text explains that this includes replacing slot 0.
 
 ### `BS-REFUND-001` — Gas refund
-- **Logic (root `SafeTx` only):**
+- **Logic (root `SafeTx` and every nested Safe transaction, whose refund the
+  inner Safe pays):**
   - `gasPrice > 0` and `gasToken = 0` → **medium** (1.3.0+, native refund is
     capped by the executor's gas price) or **high** (< 1.3.0, uncapped);
   - `gasPrice > 0` and `gasToken ≠ 0` → **high** (paid in tokens, never capped);
@@ -152,9 +156,10 @@ Status: **approved** (2026-10-22). Each detector gets its own page
 
 ### `BS-APPROVAL-002` — Permit2 allowance (experimental)
 - **Logic:** call to the canonical Permit2 contract's `approve(token, spender,
-  amount, expiration)` with `amount = 2^160 − 1` → **high**. The Permit2
-  address and ABI will be verified against Uniswap's source before
-  implementation; until then this stays experimental.
+  amount, expiration)` with `amount = 2^160 − 1` → **high**, smaller amounts
+  → info. The address and ABI were verified against Uniswap's source and on
+  seven chains (`data/permit2.json`). Experimental because signature-based
+  Permit2 approvals are not decoded yet.
 
 ### `BS-VALUE-001` — Native value
 - **Logic:** `value > 0` → **info**, formatted with 18 decimals and the chain's

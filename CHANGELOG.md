@@ -17,3 +17,11 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   calldata, with strict validation, conflict detection between sources and
   size limits.
 - Sanitisation of every input-derived string before printing.
+- Embedded registry: official Safe contracts per chain, a token list
+  confirmed on chain, chain names and Permit2.
+- Decoding into a call tree (MultiSend batches, nested Safe transactions,
+  user ABIs bound to an address), with each function name labelled as
+  verified or inferred from the selector.
+- Address book with look-alike (address poisoning) detection.
+- 20 detectors with stable IDs and severities, documented in
+  `docs/detectors/`.
