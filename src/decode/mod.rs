@@ -10,6 +10,7 @@
 pub mod functions;
 pub mod multisend;
 pub mod semantics;
+pub mod user_abi;
 
 use std::fmt;
 
@@ -17,6 +18,7 @@ use alloy_primitives::{Address, Bytes, U256};
 
 pub use functions::{ArgValue, FunctionKind, KnownCall, decode_known};
 pub use semantics::{Semantics, Verification};
+pub use user_abi::{UserAbiError, UserAbis, UserCall};
 
 use crate::registry::{self, RegistryError, SafeContracts, TokenList};
 use crate::safe::{Operation, SafeAccount, SafeTx};
@@ -109,6 +111,11 @@ pub enum DecodedCall {
         /// Whether the target is known to implement it.
         semantics: Semantics,
     },
+    /// A call decoded with an ABI the user supplied for this address.
+    User {
+        /// Function and formatted arguments.
+        call: UserCall,
+    },
     /// A `multiSend` batch.
     Batch {
         /// Whether the target is an official `MultiSend` contract.
@@ -174,19 +181,26 @@ impl CallNode {
 /// Registry tables the decoder consults.
 struct Ctx<'a> {
     chain_id: u64,
+    user_abis: &'a UserAbis,
     contracts: &'a SafeContracts,
     tokens: &'a TokenList,
 }
 
-/// Decodes `tx`, executed by `account`, into a call tree.
+/// Decodes `tx`, executed by `account`, into a call tree. Calls to an
+/// address with a user ABI are decoded with it first.
 ///
 /// # Errors
 ///
 /// Only [`RegistryError`] (corrupt embedded data). Malformed calldata is not
 /// an error: it becomes a [`DecodedCall::Malformed`] node.
-pub fn decode_tree(account: &SafeAccount, tx: &SafeTx) -> Result<CallNode, RegistryError> {
+pub fn decode_tree(
+    account: &SafeAccount,
+    tx: &SafeTx,
+    user_abis: &UserAbis,
+) -> Result<CallNode, RegistryError> {
     let ctx = Ctx {
         chain_id: account.chain_id,
+        user_abis,
         contracts: registry::safe_contracts()?,
         tokens: registry::tokens()?,
     };
@@ -236,6 +250,16 @@ fn decode_content(
 ) -> DecodedCall {
     if data.is_empty() {
         return DecodedCall::Empty;
+    }
+    match ctx.user_abis.decode(to, data) {
+        Some(Ok(call)) => return DecodedCall::User { call },
+        Some(Err(reason)) => {
+            return DecodedCall::Malformed {
+                function: None,
+                reason,
+            };
+        }
+        None => {}
     }
     let call = match decode_known(data) {
         None => {

@@ -79,11 +79,17 @@ fn change_threshold() -> Vec<u8> {
 
 #[test]
 fn empty_data_and_unknown_selectors() {
-    let root = decode_tree(&account(), &tx(Address::ZERO, Operation::Call, vec![])).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(Address::ZERO, Operation::Call, vec![]),
+        &UserAbis::default(),
+    )
+    .unwrap();
     assert_eq!(root.decoded, DecodedCall::Empty);
     let root = decode_tree(
         &account(),
         &tx(Address::ZERO, Operation::Call, vec![1, 2, 3, 4, 5]),
+        &UserAbis::default(),
     )
     .unwrap();
     assert_eq!(
@@ -92,7 +98,12 @@ fn empty_data_and_unknown_selectors() {
             selector: Some([1, 2, 3, 4])
         }
     );
-    let root = decode_tree(&account(), &tx(Address::ZERO, Operation::Call, vec![1, 2])).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(Address::ZERO, Operation::Call, vec![1, 2]),
+        &UserAbis::default(),
+    )
+    .unwrap();
     assert_eq!(root.decoded, DecodedCall::Unknown { selector: None });
 }
 
@@ -103,7 +114,12 @@ fn batch_items_run_as_the_safe_when_delegatecalled() {
         entry(Operation::Call, Address::repeat_byte(9), vec![]),
     ]);
     let ms = MULTISEND_141.parse().unwrap();
-    let root = decode_tree(&account(), &tx(ms, Operation::DelegateCall, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(ms, Operation::DelegateCall, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     let DecodedCall::Batch {
         semantics,
         call_only,
@@ -129,7 +145,12 @@ fn batch_items_run_as_the_safe_when_delegatecalled() {
 fn call_only_batches_are_recognised() {
     let target = CALL_ONLY_141.parse().unwrap();
     let data = multisend(&[entry(Operation::Call, Address::ZERO, vec![])]);
-    let root = decode_tree(&account(), &tx(target, Operation::DelegateCall, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(target, Operation::DelegateCall, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     assert!(matches!(
         root.decoded,
         DecodedCall::Batch {
@@ -143,7 +164,12 @@ fn call_only_batches_are_recognised() {
 fn batch_called_without_delegatecall_runs_as_the_batch_contract() {
     let target = CALL_ONLY_141.parse().unwrap();
     let data = multisend(&[entry(Operation::Call, safe(), change_threshold())]);
-    let root = decode_tree(&account(), &tx(target, Operation::Call, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(target, Operation::Call, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     let DecodedCall::Batch {
         semantics, items, ..
     } = &root.decoded
@@ -167,7 +193,12 @@ fn unofficial_batch_targets_are_still_decoded() {
         Address::repeat_byte(1),
         vec![],
     )]);
-    let root = decode_tree(&account(), &tx(fake, Operation::DelegateCall, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(fake, Operation::DelegateCall, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     let DecodedCall::Batch {
         semantics, items, ..
     } = &root.decoded
@@ -182,7 +213,12 @@ fn unofficial_batch_targets_are_still_decoded() {
 fn nested_safe_transactions_run_as_the_inner_safe() {
     let inner_safe = Address::repeat_byte(0x77);
     let data = exec(inner_safe, 0, change_threshold());
-    let root = decode_tree(&account(), &tx(inner_safe, Operation::Call, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(inner_safe, Operation::Call, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     let DecodedCall::Nested {
         semantics, inner, ..
     } = &root.decoded
@@ -203,7 +239,12 @@ fn nested_safe_transactions_run_as_the_inner_safe() {
 #[test]
 fn nested_with_invalid_inner_operation_is_malformed() {
     let data = exec(Address::ZERO, 2, vec![]);
-    let root = decode_tree(&account(), &tx(Address::ZERO, Operation::Call, data)).unwrap();
+    let root = decode_tree(
+        &account(),
+        &tx(Address::ZERO, Operation::Call, data),
+        &UserAbis::default(),
+    )
+    .unwrap();
     assert!(matches!(
         root.decoded,
         DecodedCall::Malformed {
@@ -224,6 +265,7 @@ fn malformed_batches_and_arguments() {
     let root = decode_tree(
         &account(),
         &tx(Address::ZERO, Operation::DelegateCall, data),
+        &UserAbis::default(),
     )
     .unwrap();
     assert!(matches!(
@@ -241,6 +283,7 @@ fn malformed_batches_and_arguments() {
             Operation::Call,
             vec![0xa9, 0x05, 0x9c, 0xbb, 0],
         ),
+        &UserAbis::default(),
     )
     .unwrap();
     assert!(matches!(root.decoded, DecodedCall::Malformed { .. }));
@@ -268,6 +311,7 @@ fn depth_limit() {
             Operation::Call,
             wrap(MAX_DEPTH, change_threshold()),
         ),
+        &UserAbis::default(),
     )
     .unwrap();
     let deepest = root.nodes().into_iter().last().unwrap();
@@ -282,6 +326,7 @@ fn depth_limit() {
             Operation::Call,
             wrap(MAX_DEPTH + 1, change_threshold()),
         ),
+        &UserAbis::default(),
     )
     .unwrap();
     let deepest = root.nodes().into_iter().last().unwrap();
@@ -297,4 +342,29 @@ fn paths_display() {
         .child(Step::Batch(0));
     assert_eq!(p.to_string(), "batch[2] > nested > batch[0]");
     assert_eq!(CallPath::default().to_string(), "root");
+}
+
+#[test]
+fn user_abis_apply_only_to_their_address_and_win_over_built_ins() {
+    // An ABI that names the `transfer` selector differently, bound to one address.
+    let abi = r#"[{"type":"function","name":"transfer","stateMutability":"nonpayable","outputs":[],
+        "inputs":[{"name":"newOwner","type":"address"},{"name":"flags","type":"uint256"}]}]"#;
+    let bound = Address::repeat_byte(0x42);
+    let mut abis = UserAbis::default();
+    abis.add(bound, abi).unwrap();
+    let data = functions::IERC20::transferCall {
+        to: Address::repeat_byte(1),
+        amount: U256::from(3u64),
+    }
+    .abi_encode();
+
+    let root = decode_tree(&account(), &tx(bound, Operation::Call, data.clone()), &abis).unwrap();
+    let DecodedCall::User { call } = &root.decoded else {
+        panic!("{:?}", root.decoded);
+    };
+    assert_eq!(call.args[0].0, "newOwner");
+
+    let other = Address::repeat_byte(0x43);
+    let root = decode_tree(&account(), &tx(other, Operation::Call, data), &abis).unwrap();
+    assert!(matches!(root.decoded, DecodedCall::Known { .. }));
 }

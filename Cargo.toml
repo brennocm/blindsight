@@ -13,6 +13,8 @@ categories = ["command-line-utilities", "cryptography::cryptocurrencies"]
 include = ["src/**/*.rs", "data/*.json", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "CHANGELOG.md"]
 
 [dependencies]
+alloy-dyn-abi = "1.7.3"
+alloy-json-abi = "1.7.3"
 alloy-primitives = "1.7.3"
 alloy-sol-types = "1.7.3"
 anyhow = "1.0.104"

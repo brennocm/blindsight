@@ -58,7 +58,12 @@ fn tree(fixture: &Value) -> CallNode {
         .unwrap()
         .finish(false)
         .unwrap();
-    decode_tree(&input.account, &input.tx).unwrap()
+    decode_tree(
+        &input.account,
+        &input.tx,
+        &blindsight::decode::UserAbis::default(),
+    )
+    .unwrap()
 }
 
 /// The function name blindsight decoded for a node, if it knows one.
