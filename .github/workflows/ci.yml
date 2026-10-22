@@ -147,7 +147,15 @@ jobs:
       # crash becomes a regression test.
       - name: run every fuzz target for 30 seconds
         working-directory: fuzz
+        # rust-toolchain.toml pins stable, which this job does not install.
+        # cargo-fuzz spawns subprocesses that would resolve that file (and
+        # fail, as rustup no longer auto-installs); RUSTUP_TOOLCHAIN takes
+        # precedence over it for every process.
+        env:
+          RUSTUP_TOOLCHAIN: nightly
         run: |
-          for target in $(cargo +nightly fuzz list); do
-            cargo +nightly fuzz run "$target" -- -max_total_time=30
+          targets=$(cargo fuzz list)
+          test -n "$targets"
+          for target in $targets; do
+            cargo fuzz run "$target" -- -max_total_time=30
           done
