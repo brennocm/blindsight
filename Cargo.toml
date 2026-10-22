@@ -1,0 +1,49 @@
+[package]
+name = "blindsight"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Offline verifier for Safe multisig transactions: computes the hashes your hardware wallet shows, decodes the calldata and flags risky operations"
+license = "Apache-2.0"
+repository = "https://github.com/brennocm/blindsight"
+readme = "README.md"
+keywords = ["safe", "multisig", "eip712", "ethereum", "security"]
+categories = ["command-line-utilities", "cryptography::cryptocurrencies"]
+# Only what is needed to build and test the crate goes into the published package.
+include = ["src/**/*.rs", "data/*.json", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "CHANGELOG.md"]
+
+[dependencies]
+anyhow = "1.0.104"
+clap = { version = "4.6.7", features = ["derive"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[lints.clippy]
+# Production code must not panic on bad input. Tests may unwrap (see clippy.toml).
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
+# Slicing untrusted calldata with `[a..b]` panics when it is too short; use `.get()`.
+indexing_slicing = "deny"
+# Selected pedantic lints: silent numeric conversions and readability.
+cast_possible_truncation = "warn"
+cast_possible_wrap = "warn"
+cast_sign_loss = "warn"
+cast_lossless = "warn"
+manual_let_else = "warn"
+needless_pass_by_value = "warn"
+redundant_closure_for_method_calls = "warn"
+semicolon_if_nothing_returned = "warn"
+uninlined_format_args = "warn"
+doc_markdown = "warn"
+explicit_iter_loop = "warn"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = "symbols"

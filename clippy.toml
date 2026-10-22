@@ -1,0 +1,6 @@
+# `unwrap`/`expect`/`panic`/indexing are denied in production code (Cargo.toml [lints])
+# but fine in tests, where a panic is the failure report.
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+allow-indexing-slicing-in-tests = true
