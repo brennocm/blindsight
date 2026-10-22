@@ -20,6 +20,7 @@ mod module_001;
 mod owners_001;
 mod poison_001;
 mod refund_001;
+mod self_001;
 mod semantics_001;
 mod target_001;
 mod threshold_001;
@@ -229,11 +230,12 @@ pub enum Detector {
     Poison001,
     Target001,
     Decode001,
+    Self001,
 }
 
 impl Detector {
     /// Every detector, in catalog order.
-    pub const ALL: [Detector; 16] = [
+    pub const ALL: [Detector; 17] = [
         Detector::Delegate001,
         Detector::Delegate002,
         Detector::Semantics001,
@@ -250,6 +252,7 @@ impl Detector {
         Detector::Poison001,
         Detector::Target001,
         Detector::Decode001,
+        Detector::Self001,
     ];
 
     /// Stable ID, e.g. `BS-DELEGATE-001`.
@@ -291,6 +294,7 @@ impl Detector {
             Detector::Poison001 => include_str!("../../docs/detectors/BS-POISON-001.md"),
             Detector::Target001 => include_str!("../../docs/detectors/BS-TARGET-001.md"),
             Detector::Decode001 => include_str!("../../docs/detectors/BS-DECODE-001.md"),
+            Detector::Self001 => include_str!("../../docs/detectors/BS-SELF-001.md"),
         }
     }
 
@@ -375,6 +379,11 @@ impl Detector {
                 "Undecodable or malformed calldata",
                 "medium; high for a malformed batch",
             ),
+            Detector::Self001 => (
+                self_001::ID,
+                "Call to the Safe itself",
+                "info; medium if the function is not a Safe function",
+            ),
         }
     }
 
@@ -397,6 +406,7 @@ impl Detector {
             Detector::Poison001 => poison_001::check(ctx, node),
             Detector::Target001 => target_001::check(ctx, node),
             Detector::Decode001 => decode_001::check(ctx, node),
+            Detector::Self001 => self_001::check(ctx, node),
         }
     }
 }
