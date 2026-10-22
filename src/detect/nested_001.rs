@@ -1,5 +1,6 @@
-//! `BS-NESTED-001`: transactions for another Safe, opaque hash approvals,
-//! and nesting too deep to analyse.
+//! `BS-NESTED-001`: transactions for another Safe, opaque approvals (a
+//! hash, or an off-chain message signed through `SignMessageLib`), and
+//! nesting too deep to analyse.
 
 use super::{Context, Finding, Severity, finding};
 use crate::decode::{CallNode, DecodedCall, KnownCall, MAX_DEPTH};
@@ -28,11 +29,25 @@ pub fn check(ctx: &Context<'_>, node: &CallNode) -> Vec<Finding> {
                 "Calls approveHash({hash}) on {target}: this Safe, as an owner of that Safe, approves whatever transaction has this hash. The hash reveals nothing about the transaction. Compute it yourself from the inner transaction (blindsight hash, with that Safe's address, chain, version and nonce) before signing."
             ),
         ),
+        DecodedCall::Known {
+            call: KnownCall::SignMessage { message },
+            ..
+        } => (
+            Severity::Medium,
+            "Signs an off-chain message for the Safe",
+            format!(
+                "Delegatecalls signMessage on {target} with a {}-byte message (keccak256 {}): afterwards the Safe confirms this message as signed to any contract that checks its signature (EIP-1271). What that authorises depends on the message, for example a Permit2 permit or an exchange order, and blindsight does not interpret it. Check the message's content and who will rely on it.",
+                message.len(),
+                alloy_primitives::keccak256(message)
+            ),
+        ),
+        // Code nobody analysed is treated like the worst case: a delegatecall
+        // could be hidden one level below the limit.
         DecodedCall::TooDeep => (
-            Severity::High,
+            Severity::Critical,
             "Nesting too deep to analyse",
             format!(
-                "This call is more than {MAX_DEPTH} batch or nested levels deep, so blindsight did not decode or check it. Legitimate transactions are rarely nested this deeply."
+                "This call is more than {MAX_DEPTH} batch or nested levels deep, so blindsight did not decode or check it. It could hide anything, including a delegatecall that takes over the Safe. Legitimate transactions are not nested this deeply."
             ),
         ),
         _ => return Vec::new(),
@@ -76,7 +91,23 @@ mod tests {
         assert!(
             with_id(&deep, "BS-NESTED-001")
                 .iter()
-                .any(|(s, _)| *s == Severity::High)
+                .any(|(s, _)| *s == Severity::Critical)
         );
+
+        // Signing an off-chain message through the official SignMessageLib.
+        let sign = tx(
+            addr(SIGN_MESSAGE_LIB_141),
+            Operation::DelegateCall,
+            IHelpers::signMessageCall {
+                _data: Bytes::from(vec![7; 40]),
+            }
+            .abi_encode(),
+        );
+        let f = findings(&sign);
+        assert_eq!(
+            with_id(&f, "BS-NESTED-001"),
+            [(Severity::Medium, "root".into())]
+        );
+        assert!(f[0].detail.contains("40-byte message"));
     }
 }

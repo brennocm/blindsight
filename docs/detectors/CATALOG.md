@@ -47,7 +47,7 @@ Status: **approved** (2026-10-22). Each detector gets its own page
 | `BS-DECODE-001` | Undecodable or malformed calldata | medium | stable | WazirX |
 | `BS-SELF-001` | Call to the Safe itself | info; medium if selector unknown | stable | — |
 | `BS-NONCE-001` | Suspicious nonce | medium | stable | — |
-| `BS-NESTED-001` | Nested Safe transaction or opaque hash approval | info / high | stable | — |
+| `BS-NESTED-001` | Nested Safe transaction or opaque approval | info / medium / high / critical | stable | — |
 | `BS-REPLAY-001` | Domain without chain id (pre-1.3.0) | low | stable | — |
 | `BS-APPROVAL-002` | Permit2 allowance | high | experimental | — |
 
@@ -199,15 +199,19 @@ Status: **approved** (2026-10-22). Each detector gets its own page
   (pre-signed future transaction that will stay valid until executed);
   `current < nonce ≤ current + 3` → info (queued).
 
-### `BS-NESTED-001` — Nested Safe transaction / hash approval
+### `BS-NESTED-001` — Nested Safe transaction or opaque approval
 - **Logic:**
   - calldata is `execTransaction` on another address → **info**, decoded
     recursively; detectors run on the inner transaction;
   - calldata is `approveHash(h)` → **high** ("you are approving an opaque
     hash") unless the user supplies the inner transaction and its computed
     safeTxHash equals `h`, then **info**;
-  - nesting deeper than the limit (4 levels) → **high**: the inner
-    part was not analysed.
+  - `signMessage` delegatecalled to the official `SignMessageLib` →
+    **medium**: the Safe will confirm the message as signed (EIP-1271), and
+    its content is not interpreted;
+  - nesting deeper than the limit (4 levels) → **critical**: the inner
+    part was not analysed and could hide a takeover. (Raised from high, and
+    the `signMessage` rule added, in the final security review.)
 
 ### `BS-REPLAY-001` — Domain without chain id
 - **Logic:** Safe version < 1.3.0 → **low**: the signature is valid on every

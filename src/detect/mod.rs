@@ -399,8 +399,8 @@ impl Detector {
             Detector::Nonce001 => (nonce_001::ID, "Suspicious nonce", "medium; info if queued"),
             Detector::Nested001 => (
                 nested_001::ID,
-                "Nested Safe transaction or opaque hash approval",
-                "info (nested, decoded), high (approveHash, too deep)",
+                "Nested Safe transaction or opaque approval",
+                "info (nested, decoded), medium (signMessage), high (approveHash), critical (too deep)",
             ),
             Detector::Replay001 => (replay_001::ID, "Domain without chain id (pre-1.3.0)", "low"),
         }

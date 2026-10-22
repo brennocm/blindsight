@@ -183,7 +183,7 @@ does. Firmware details and sources: [docs/hardware-wallets.md](docs/hardware-wal
 | `BS-DECODE-001` | Undecodable or malformed calldata | medium; high for a malformed batch |
 | `BS-SELF-001` | Call to the Safe itself | info; medium if the function is not a Safe function |
 | `BS-NONCE-001` | Suspicious nonce | medium; info if queued |
-| `BS-NESTED-001` | Nested Safe transaction or opaque hash approval | info (nested, decoded), high (approveHash, too deep) |
+| `BS-NESTED-001` | Nested Safe transaction or opaque approval | info (nested, decoded), medium (signMessage), high (approveHash), critical (too deep) |
 | `BS-REPLAY-001` | Domain without chain id (pre-1.3.0) | low |
 
 Each has a page in [docs/detectors](docs/detectors/) (also `blindsight

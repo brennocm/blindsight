@@ -139,7 +139,8 @@ sepolia-transfer: medium
 set-pre-signature: medium
   medium   BS-DECODE-001    root
   info     BS-TARGET-001    root
-sign-message-lib: none
+sign-message-lib: medium
+  medium   BS-NESTED-001    root
 swap-owner: high
   high     BS-OWNERS-001    root
   info     BS-SELF-001      root
