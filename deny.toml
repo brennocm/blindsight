@@ -12,7 +12,13 @@ all-features = true
 # the check unless it is listed here with a reason.
 version = 2
 yanked = "deny"
-ignore = []
+ignore = [
+    # `paste` is a compile-time proc-macro used by alloy-primitives and
+    # syn-solidity. It runs only during the build, never handles input, and its
+    # author archived it as feature-complete. No maintained drop-in exists in
+    # the alloy graph yet; revisit when alloy replaces it.
+    { id = "RUSTSEC-2024-0436", reason = "build-time proc-macro, archived as complete; pulled by alloy" },
+]
 
 [licenses]
 version = 2
@@ -22,6 +28,7 @@ allow = [
     "Apache-2.0",
     "MIT",
     "Unicode-3.0",
+    "Zlib", # foldhash (via alloy-primitives)
 ]
 confidence-threshold = 0.93
 
